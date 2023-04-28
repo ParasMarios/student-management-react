@@ -5,12 +5,20 @@ class StudentDataService {
     return http.get("/students");
   }
 
-  get(email) {
+  findByEmail(email) {
     return http.get(`/students/${email}`);
   }
 
   create(data) {
-    return http.post("/students", data);
+    return http
+      .post("/students", data)
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   update(email, data) {

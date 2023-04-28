@@ -92,72 +92,100 @@ export default class AddStudent extends React.Component {
   render() {
     return (
       <div className="submit-form">
-        <h4>Add a Student</h4>
-        <form>
-          <div className="form-group">
-            <label htmlFor="firstName">First Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="firstName"
-              required
-              value={this.state.firstName}
-              onChange={this.onChangeFirstName}
-              name="firstName"
-            />
+        {this.state.submitted ? (
+          <div>
+            <h4>You submitted successfully!</h4>
+            <button className="btn btn-success" onClick={this.newStudent}>
+              Add
+            </button>
           </div>
-          <div className="form-group">
-            <label htmlFor="lastName">Last Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="lastName"
-              required
-              value={this.state.lastName}
-              onChange={this.onChangeLastName}
-              name="lastName"
-            />
+        ) : (
+          <div>
+            <h4>Add a Student</h4>
+            <form>
+              <div className="form-group">
+                <label htmlFor="firstName">First Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="firstName"
+                  required
+                  minLength={4}
+                  pattern="[A-Za-z]+"
+                  value={this.state.firstName}
+                  onChange={this.onChangeFirstName}
+                  name="firstName"
+                />
+                <div className="invalid-feedback">
+                  Please enter a valid first name.
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="lastName"
+                  required
+                  minLength={4}
+                  pattern="[A-Za-z]+"
+                  value={this.state.lastName}
+                  onChange={this.onChangeLastName}
+                  name="lastName"
+                />
+                <div className="invalid-feedback">
+                  Please enter a valid last name.
+                </div>
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  required
+                  minLength={4}
+                  maxLength={30}
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
+                  name="email"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="thesisTitle">Thesis Title</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="thesisTitle"
+                  required
+                  minLength={4}
+                  value={this.state.thesisTitle}
+                  onChange={this.onChangeThesisTitle}
+                  name="thesisTitle"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="comments">Comments</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="comments"
+                  maxLength={300}
+                  value={this.state.comments}
+                  onChange={this.onChangeComments}
+                  name="comments"
+                />
+              </div>
+              <button
+                onClick={this.saveStudent}
+                className="btn btn-success"
+                style={{ marginTop: "10px" }}
+              >
+                Submit
+              </button>
+            </form>
           </div>
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <input
-              type="text"
-              className="form-control"
-              id="email"
-              required
-              value={this.state.email}
-              onChange={this.onChangeEmail}
-              name="email"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="thesisTitle">Thesis Title</label>
-            <input
-              type="text"
-              className="form-control"
-              id="thesisTitle"
-              required
-              value={this.state.thesisTitle}
-              onChange={this.onChangeThesisTitle}
-              name="thesisTitle"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="comments">Comments</label>
-            <input
-              type="text"
-              className="form-control"
-              id="comments"
-              required
-              value={this.state.comments}
-              onChange={this.onChangeComments}
-              name="comments"
-            />
-          </div>
-          <button onClick={this.saveStudent} className="btn btn-success">
-            Submit
-          </button>
-        </form>
+        )}
       </div>
     );
   }

@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import AddStudent from "./components/add-student";
+import Student from "./components/student";
+import StudentList from "./components/student-list";
 
 class App extends Component {
   render() {
@@ -29,6 +31,8 @@ class App extends Component {
 
         <div className="container mt-3">
           <Routes>
+            <Route path="/students" element={<StudentList />} />
+            <Route path="/students/:id" element={<Student />} />
             <Route path="/add" element={<AddStudent />} />
           </Routes>
         </div>

@@ -1,44 +1,23 @@
-import React, { Component } from "react";
-import { Route, Link, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import Navbar from "./layout/Navbar";
+import Home from "./pages/Home";
+import AddStudent from "./students/AddStudent";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import EditStudent from "./students/EditStudent";
 
-import AddStudent from "./components/add-student";
-import Student from "./components/student";
-import StudentList from "./components/student-list";
+function App() {
+  return (
+    <div className="App">
+      <Navbar />
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <a href="/students" className="navbar-brand">
-            Student Management
-          </a>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/students"} className="nav-link">
-                Students
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/add"} className="nav-link">
-                Add
-              </Link>
-            </li>
-          </div>
-        </nav>
-
-        <div className="container mt-3">
-          <Routes>
-            <Route path="/students" element={<StudentList />} />
-            <Route path="/students/:id" element={<Student />} />
-            <Route path="/add" element={<AddStudent />} />
-          </Routes>
-        </div>
-      </div>
-    );
-  }
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/addstudent" element={<AddStudent />} />
+        <Route path="/editstudent/:email" element={<EditStudent />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

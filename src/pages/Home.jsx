@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import axiosInstance from "../axiosInstance";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [students, setStudents] = useState([]);
-
-  const { email: studentEmail } = useParams();
 
   useEffect(() => {
     loadStudents();
   }, []);
 
   const loadStudents = async () => {
-    const result = await axios.get("http://localhost:8080/api/v1/students");
+    const result = await axiosInstance.get("/students");
     setStudents(result.data);
   };
 
   const deleteStudent = async (email) => {
-    await axios.delete(`http://localhost:8080/api/v1/students/${email}`);
+    await axiosInstance.delete(`/students/${email}`);
     loadStudents();
   };
 

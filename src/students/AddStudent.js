@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AddStudent() {
@@ -27,9 +27,7 @@ export default function AddStudent() {
 
   const checkEmailExists = async (email) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/v1/students/checkEmail/${email}`
-      );
+      const response = await axiosInstance.get(`/students/checkEmail/${email}`);
       return response.data ? true : false;
     } catch (error) {
       if (error.response && error.response.status === 404) {
@@ -113,7 +111,7 @@ export default function AddStudent() {
     e.preventDefault();
 
     if (isFormValid()) {
-      await axios.post("http://localhost:8080/api/v1/students", student);
+      await axiosInstance.post("/students", student);
       navigate("/");
     }
   };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function EditStudent() {
@@ -44,9 +44,7 @@ export default function EditStudent() {
 
   useEffect(() => {
     const fetchStudent = async () => {
-      const { data } = await axios.get(
-        `http://localhost:8080/api/v1/students/${studentEmail}`
-      );
+      const { data } = await axiosInstance.get(`/students/${studentEmail}`);
       setStudent({ thesisTitle: data.thesisTitle, comments: data.comments });
     };
     fetchStudent();
@@ -69,10 +67,7 @@ export default function EditStudent() {
     e.preventDefault();
 
     if (isFormValid()) {
-      await axios.patch(
-        `http://localhost:8080/api/v1/students/${studentEmail}`,
-        student
-      );
+      await axiosInstance.patch(`/students/${studentEmail}`, student);
       navigate("/");
     }
   };

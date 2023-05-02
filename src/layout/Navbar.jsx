@@ -14,7 +14,9 @@ export default function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <a className="navbar-brand">Student Management Application</a>
+          <Link className="navbar-brand ms-5" to="/">
+            Student Management System
+          </Link>
           <div className="ms-auto">
             <Link
               className="btn btn-outline-danger me-2"
@@ -22,7 +24,7 @@ export default function Navbar() {
             >
               Delete All Students
             </Link>
-            <Link className="btn btn-outline-success" to="/addstudent">
+            <Link className="btn btn-outline-success" to="/app/addstudent">
               Add Student
             </Link>
           </div>

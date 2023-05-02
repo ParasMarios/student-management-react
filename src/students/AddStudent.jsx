@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../layout/Navbar";
 
 export default function AddStudent() {
   let navigate = useNavigate();
@@ -118,6 +119,7 @@ export default function AddStudent() {
 
   return (
     <div className="container">
+      <Navbar />
       <div className="row">
         <div className="col-md-6 shadow mx-auto p-5">
           <h2 className="text-center mb-4">Add A Student</h2>

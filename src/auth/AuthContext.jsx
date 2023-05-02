@@ -28,7 +28,12 @@ export const AuthProvider = ({ children }) => {
 
   const loginUser = async (email, password) => {
     try {
-      console.log("Sending request with email:", email, "and password:", password);
+      console.log(
+        "Sending request with email:",
+        email,
+        "and password:",
+        password
+      );
 
       const res = await axiosInstance.post("/auth/authenticate", {
         email,
@@ -42,7 +47,7 @@ export const AuthProvider = ({ children }) => {
         accessToken: accessToken,
       });
 
-      navigate("/app"); // Use navigate instead of history.push
+      navigate("/app/home"); // Use navigate instead of history.push
     } catch (error) {
       console.error("Error during login", error);
       if (error.response) {

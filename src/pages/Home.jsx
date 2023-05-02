@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { Link } from "react-router-dom";
+import Navbar from "../layout/Navbar";
 
 export default function Home() {
   const [students, setStudents] = useState([]);
@@ -20,6 +21,8 @@ export default function Home() {
   };
 
   return (
+    <div>
+    <Navbar />
     <div className="container">
       <div className="py-4">
         <table className="table table-dark table-hover">
@@ -62,6 +65,7 @@ export default function Home() {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 }

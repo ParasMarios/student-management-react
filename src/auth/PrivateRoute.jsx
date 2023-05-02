@@ -5,7 +5,7 @@ import { useAuth } from "./AuthContext";
 import { Navigate } from "react-router-dom";
 
 export default function PrivateRoute() {
-    const { authState } = useAuth();
-  
-    return authState.isAuthenticated ? <Outlet /> : <Navigate to="/" />;
-  }
+  const { authState } = useAuth();
+
+  return authState.isAuthenticated ? <Outlet /> : <Navigate to="/" />;
+}

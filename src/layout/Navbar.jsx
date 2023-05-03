@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 export default function Navbar() {
   const deleteAllStudents = async () => {
     if (window.confirm("Are you sure you want to delete all students?")) {
-      await axios.delete(`http://localhost:8080/api/v1/students`);
+      await axiosInstance.delete(`/students`);
       window.location.reload();
     }
   };

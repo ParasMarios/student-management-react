@@ -113,116 +113,118 @@ export default function AddStudent() {
 
     if (isFormValid()) {
       await axiosInstance.post("/students", student);
-      navigate("/");
+      navigate("/app/home");
     }
   };
 
   return (
-    <div className="container">
+    <>
       <Navbar />
-      <div className="row">
-        <div className="col-md-6 shadow mx-auto p-5">
-          <h2 className="text-center mb-4">Add A Student</h2>
-          <form onSubmit={(e) => onSubmit(e)}>
-            {/* First Name */}
-            <div className="mb-3">
-              <label htmlFor="firstName" className="form-label">
-                First Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="firstName"
-                placeholder="Enter first name"
-                value={firstName}
-                onChange={(e) => onInputChange(e)}
-              />
-              {validation.firstName && (
-                <div className="text-danger">{validation.firstName}</div>
-              )}
-            </div>
-            {/* Last Name */}
-            <div className="mb-3">
-              <label htmlFor="lastName" className="form-label">
-                Last Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="lastName"
-                placeholder="Enter last name"
-                value={lastName}
-                onChange={(e) => onInputChange(e)}
-              />
-              {validation.lastName && (
-                <div className="text-danger">{validation.lastName}</div>
-              )}
-            </div>
-            {/* Email */}
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Email
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => onInputChange(e)}
-              />
-              {validation.email && (
-                <div className="text-danger">{validation.email}</div>
-              )}
-            </div>
-            {/* Thesis Title */}
-            <div className="mb-3">
-              <label htmlFor="thesisTitle" className="form-label">
-                Thesis Title
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="thesisTitle"
-                placeholder="Enter thesis title"
-                value={thesisTitle}
-                onChange={(e) => onInputChange(e)}
-              />
-              {validation.thesisTitle && (
-                <div className="text-danger">{validation.thesisTitle}</div>
-              )}
-            </div>
-            {/* Comments */}
-            <div className="mb-3">
-              <label htmlFor="comments" className="form-label">
-                Comments
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="comments"
-                placeholder="Enter comments"
-                value={comments}
-                onChange={(e) => onInputChange(e)}
-              />
-              {validation.comments && (
-                <div className="text-danger">{validation.comments}</div>
-              )}
-            </div>
-            <Link
-              type="button"
-              className="btn btn-danger mx-2"
-              to={"/"}
-              onClick={() => navigate("/")}
-            >
-              Cancel
-            </Link>
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </form>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6 shadow mx-auto p-5">
+            <h2 className="text-center mb-4">Add A Student</h2>
+            <form onSubmit={(e) => onSubmit(e)}>
+              {/* First Name */}
+              <div className="mb-3">
+                <label htmlFor="firstName" className="form-label">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="firstName"
+                  placeholder="Enter first name"
+                  value={firstName}
+                  onChange={(e) => onInputChange(e)}
+                />
+                {validation.firstName && (
+                  <div className="text-danger">{validation.firstName}</div>
+                )}
+              </div>
+              {/* Last Name */}
+              <div className="mb-3">
+                <label htmlFor="lastName" className="form-label">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="lastName"
+                  placeholder="Enter last name"
+                  value={lastName}
+                  onChange={(e) => onInputChange(e)}
+                />
+                {validation.lastName && (
+                  <div className="text-danger">{validation.lastName}</div>
+                )}
+              </div>
+              {/* Email */}
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  placeholder="Enter email"
+                  value={email}
+                  onChange={(e) => onInputChange(e)}
+                />
+                {validation.email && (
+                  <div className="text-danger">{validation.email}</div>
+                )}
+              </div>
+              {/* Thesis Title */}
+              <div className="mb-3">
+                <label htmlFor="thesisTitle" className="form-label">
+                  Thesis Title
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="thesisTitle"
+                  placeholder="Enter thesis title"
+                  value={thesisTitle}
+                  onChange={(e) => onInputChange(e)}
+                />
+                {validation.thesisTitle && (
+                  <div className="text-danger">{validation.thesisTitle}</div>
+                )}
+              </div>
+              {/* Comments */}
+              <div className="mb-3">
+                <label htmlFor="comments" className="form-label">
+                  Comments
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="comments"
+                  placeholder="Enter comments"
+                  value={comments}
+                  onChange={(e) => onInputChange(e)}
+                />
+                {validation.comments && (
+                  <div className="text-danger">{validation.comments}</div>
+                )}
+              </div>
+              <Link
+                type="button"
+                className="btn btn-danger mx-2"
+                to={"/app/home"}
+                onClick={() => navigate("/app/home")}
+              >
+                Cancel
+              </Link>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

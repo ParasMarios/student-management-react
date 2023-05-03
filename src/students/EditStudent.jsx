@@ -68,7 +68,7 @@ export default function EditStudent() {
 
     if (isFormValid()) {
       await axiosInstance.patch(`/students/${studentEmail}`, student);
-      navigate("/app/home");
+      navigate("/students");
     }
   };
 
@@ -115,8 +115,8 @@ export default function EditStudent() {
             <Link
               type="button"
               className="btn btn-danger mx-2"
-              to={"/app/home"}
-              onClick={() => navigate("/app/home")}
+              to={"/students"}
+              onClick={() => navigate("/students")}
             >
               Cancel
             </Link>

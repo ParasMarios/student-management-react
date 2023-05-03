@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
         accessToken: accessToken,
       });
 
-      navigate("/app/home"); // Use navigate instead of history.push
+      navigate("/app/students"); // Use navigate instead of history.push
     } catch (error) {
       console.error("Error during login", error);
       if (error.response) {

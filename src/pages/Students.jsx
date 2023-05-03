@@ -50,7 +50,7 @@ export default function Home() {
                     <td>
                       <Link
                         className="btn btn-outline-warning mx-2"
-                        to={`/app/editstudent/${student.email}`}
+                        to={`/editstudent/${student.email}`}
                       >
                         Edit
                       </Link>

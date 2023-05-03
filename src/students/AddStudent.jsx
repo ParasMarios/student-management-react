@@ -113,7 +113,7 @@ export default function AddStudent() {
 
     if (isFormValid()) {
       await axiosInstance.post("/students", student);
-      navigate("/app/home");
+      navigate("/students");
     }
   };
 
@@ -213,8 +213,8 @@ export default function AddStudent() {
               <Link
                 type="button"
                 className="btn btn-danger mx-2"
-                to={"/app/home"}
-                onClick={() => navigate("/app/home")}
+                to={"/app/students"}
+                onClick={() => navigate("/app/students")}
               >
                 Cancel
               </Link>

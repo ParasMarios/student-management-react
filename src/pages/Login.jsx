@@ -17,12 +17,14 @@ export default function Login() {
 
   return (
     <div className="container">
-      <div className="row mt-5">
-        <div className="col-md-4 offset-md-4">
+      <div className="row my-5">
+        <div className="col-md-4 col-lg-5 mx-auto">
           <h4>Login</h4>
           <form onSubmit={handleSubmit}>
-            <div className="form-group mt-3">
-              <label htmlFor="email">Email address:</label>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Email address
+              </label>
               <input
                 type="email"
                 className="form-control"
@@ -32,8 +34,10 @@ export default function Login() {
                 required
               />
             </div>
-            <div className="form-group mt-3">
-              <label htmlFor="password">Password:</label>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
               <input
                 type="password"
                 className="form-control"
@@ -43,7 +47,7 @@ export default function Login() {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary mt-3">
+            <button type="submit" className="btn btn-primary">
               Login
             </button>
           </form>

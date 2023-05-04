@@ -28,12 +28,15 @@ export default function Register() {
 
   return (
     <div className="container">
-      <div className="row mt-5">
-        <div className="col-md-4 offset-md-4">
+      <div className="row my-5">
+        <div className="col-md-4 col-lg-5 mx-auto">
           <h4>Register</h4>
           <form onSubmit={handleSubmit}>
-            <div className="form-group mt-3">
-              <label htmlFor="firstName">First Name:</label>
+            {/* First Name */}
+            <div className="mb-3">
+              <label htmlFor="firstName" className="form-label">
+                First Name
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -43,8 +46,11 @@ export default function Register() {
                 required
               />
             </div>
-            <div className="form-group mt-3">
-              <label htmlFor="lastName">Last Name:</label>
+            {/* Last Name */}
+            <div className="mb-3">
+              <label htmlFor="lastName" className="form-label">
+                Last Name
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -54,8 +60,11 @@ export default function Register() {
                 required
               />
             </div>
-            <div className="form-group mt-3">
-              <label htmlFor="email">Email address:</label>
+            {/* Email */}
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Email address
+              </label>
               <input
                 type="email"
                 className="form-control"
@@ -65,8 +74,11 @@ export default function Register() {
                 required
               />
             </div>
-            <div className="form-group mt-3">
-              <label htmlFor="password">Password:</label>
+            {/* Password */}
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
               <input
                 type="password"
                 className="form-control"
@@ -76,7 +88,7 @@ export default function Register() {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary mt-3">
+            <button type="submit" className="btn btn-primary">
               Register
             </button>
           </form>

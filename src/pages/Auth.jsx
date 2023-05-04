@@ -8,12 +8,12 @@ export default function Auth() {
 
   return (
     <div className="container">
-      <div className="row mt-5">
-        <div className="col-md-4 offset-md-4">
+      <div className="row my-5">
+        <div className="col-md-6 col-lg-6 shadow mx-auto p-5">
           {showLogin ? (
             <>
               <Login />
-              <div className="mt-3">
+              <div className="mt-3 text-center">
                 Don't have an account?{" "}
                 <button
                   className="btn btn-link"
@@ -26,7 +26,7 @@ export default function Auth() {
           ) : (
             <>
               <Register />
-              <div className="mt-3">
+              <div className="mt-3 text-center">
                 Already have an account?{" "}
                 <button
                   className="btn btn-link"

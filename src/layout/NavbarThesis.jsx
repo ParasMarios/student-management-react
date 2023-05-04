@@ -42,20 +42,22 @@ export default function NavbarThesis() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {authState.isAuthenticated && (
-              <div className="d-flex">
+              <div className="ms-auto">
                 <button
-                  className="btn btn-outline-success mx-2"
-                  type="button"
-                  onClick={() => (window.location.href = "/app/addthesis")}
-                >
-                  Add Thesis
-                </button>
-                <button
-                  className="btn btn-outline-danger mx-2"
+                  className="btn btn-outline-danger me-2"
                   type="button"
                   onClick={deleteAllTheses}
                 >
                   Delete All Theses
+                </button>
+                <button
+                  className="btn btn-outline-success me-2"
+                  type="button"
+                  onClick={() =>
+                    (window.location.href = "/app/theses/addthesis")
+                  }
+                >
+                  Add Thesis
                 </button>
                 <button
                   className="btn btn-outline-warning"

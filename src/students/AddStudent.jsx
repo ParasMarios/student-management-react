@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../layout/Navbar";
 
 export default function AddStudent() {
@@ -121,7 +121,7 @@ export default function AddStudent() {
     <>
       <Navbar />
       <div className="container">
-        <div className="row">
+        <div className="row mt-5">
           <div className="col-md-6 shadow mx-auto p-5">
             <h2 className="text-center mb-4">Add A Student</h2>
             <form onSubmit={(e) => onSubmit(e)}>
@@ -210,14 +210,13 @@ export default function AddStudent() {
                   <div className="text-danger">{validation.comments}</div>
                 )}
               </div>
-              <Link
+              <button
                 type="button"
-                className="btn btn-danger mx-2"
-                to={"/app/students"}
+                className="btn btn-danger me-2"
                 onClick={() => navigate("/app/students")}
               >
                 Cancel
-              </Link>
+              </button>
               <button type="submit" className="btn btn-primary">
                 Submit
               </button>

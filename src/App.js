@@ -25,7 +25,7 @@ function App() {
         {/* Add routes for the Thesis components */}
         <Route path="theses" element={<Theses />} />
         <Route path="/app/theses/addthesis" element={<AddThesis />} />
-        <Route path="/app/theses/edittheses/:title" element={<EditThesis />} />
+        <Route path="/app/theses/editthesis/:title" element={<EditThesis />} />
       </Routes>
     </AuthProvider>
   );

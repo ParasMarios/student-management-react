@@ -56,7 +56,7 @@ export default function Thesis() {
                       <div className="d-inline-flex">
                         <Link
                           className="btn btn-outline-warning mx-2"
-                          to={`/app/home/thesis/edit/${thesis.title}`}
+                          to={`/app/theses/editthesis/${thesis.title}`}
                         >
                           Edit
                         </Link>

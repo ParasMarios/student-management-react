@@ -6,6 +6,7 @@ import NavbarThesis from "../layout/NavbarThesis";
 
 export default function Thesis() {
   const [theses, setTheses] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     loadTheses();
@@ -21,11 +22,51 @@ export default function Thesis() {
     loadTheses();
   };
 
+  const searchThesesByStatusContains = async (status) => {
+    const result = await axiosInstance.get(`/theses/status/contains/${status}`);
+    setTheses(result.data);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    searchThesesByStatusContains(search);
+  };
+
+  const handleSearchKeyPress = (e) => {
+    if (e.key === "Enter") {
+      searchThesesByStatusContains(search);
+    }
+  };
+
   return (
     <div>
       <NavbarThesis />
       <div className="container">
         <div className="py-4">
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by status"
+              aria-label="Search by status"
+              aria-describedby="button-addon2"
+              value={search}
+              onChange={handleSearchChange}
+              onKeyDown={handleSearchKeyPress}
+            />
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              id="button-addon2"
+              onClick={handleSearchSubmit}
+            >
+              Search
+            </button>
+          </div>
           <table className="table table-dark table-hover">
             <thead>
               <tr>

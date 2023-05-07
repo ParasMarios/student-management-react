@@ -16,8 +16,24 @@ export default function Home() {
   };
 
   const deleteStudent = async (email) => {
-    await axiosInstance.delete(`/students/${email}`);
-    loadStudents();
+    if (window.confirm("Do you really want to delete this student?")) {
+      const studentToDelete = students.find(
+        (student) => student.email === email
+      );
+      const studentsWithSameThesis = students.filter(
+        (student) => student.thesisTitle === studentToDelete.thesisTitle
+      );
+      let reassignThesis = false;
+      if (studentsWithSameThesis.length === 1) {
+        reassignThesis = window.confirm(
+          "Do you want to mark the relevant thesis as 'available'?"
+        );
+      }
+      await axiosInstance.delete(`/students/${email}`, {
+        params: { reassignThesis },
+      });
+      loadStudents();
+    }
   };
 
   return (

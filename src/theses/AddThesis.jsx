@@ -112,6 +112,7 @@ export default function AddThesis() {
                   className="form-control"
                   id="title"
                   name="title"
+                  placeholder="Enter title"
                   value={thesis.title}
                   onChange={handleChange}
                   required
@@ -125,6 +126,7 @@ export default function AddThesis() {
                   className="form-control"
                   id="description"
                   name="description"
+                  placeholder="Enter description"
                   value={thesis.description}
                   onChange={handleChange}
                   required
@@ -157,6 +159,7 @@ export default function AddThesis() {
                   className="form-control"
                   id="necessaryKnowledge"
                   name="necessaryKnowledge"
+                  placeholder="Enter necessary knowledge"
                   value={thesis.necessaryKnowledge}
                   onChange={handleChange}
                   required
@@ -172,6 +175,7 @@ export default function AddThesis() {
                   className="form-control"
                   id="deliverables"
                   name="deliverables"
+                  placeholder="Enter deliverables"
                   value={thesis.deliverables}
                   onChange={handleChange}
                   required
@@ -187,6 +191,7 @@ export default function AddThesis() {
                   className="form-control"
                   id="bibliographicReferences"
                   name="bibliographicReferences"
+                  placeholder="Enter bibliographic references"
                   value={thesis.bibliographicReferences}
                   onChange={handleChange}
                   required

@@ -44,10 +44,10 @@ export default function AddStudent() {
     if (emailCheck) {
       const checkEmail = async () => {
         const exists = await checkEmailExists(email);
-        setValidation({
-          ...validation,
+        setValidation((prevValidation) => ({
+          ...prevValidation,
           email: exists ? "Email already exists" : "",
-        });
+        }));
         setEmailCheck(false);
       };
 
@@ -113,7 +113,7 @@ export default function AddStudent() {
 
     if (isFormValid()) {
       await axiosInstance.post("/students", student);
-      navigate("/students");
+      navigate("/app/students", { replace: true });
     }
   };
 

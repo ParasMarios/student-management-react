@@ -28,7 +28,9 @@ export default function EditThesis() {
 
   useEffect(() => {
     const fetchThesis = async () => {
-      const { data } = await axiosInstance.get(`/theses/${title}`);
+      const { data } = await axiosInstance.get(
+        `/theses/${encodeURIComponent(title)}`
+      );
       setThesis(data);
     };
     fetchThesis();
@@ -91,7 +93,7 @@ export default function EditThesis() {
     e.preventDefault();
 
     if (isFormValid()) {
-      await axiosInstance.patch(`/theses/${title}`, thesis);
+      await axiosInstance.patch(`/theses/${encodeURIComponent(title)}`, thesis);
       navigate("/theses");
     }
   };

@@ -18,8 +18,12 @@ export default function Thesis() {
   };
 
   const deleteThesis = async (title) => {
-    await axiosInstance.delete(`/theses/${title}`);
-    loadTheses();
+    try {
+      await axiosInstance.delete(`/theses/${encodeURIComponent(title)}`);
+      loadTheses();
+    } catch (error) {
+      console.error("Error while deleting thesis:", error);
+    }
   };
 
   const searchThesesByStatusContains = async (status) => {

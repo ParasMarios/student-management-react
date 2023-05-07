@@ -1,4 +1,3 @@
-// src/pages/Thesis.js
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { Link } from "react-router-dom";
@@ -82,6 +81,7 @@ export default function Thesis() {
                 <th scope="col">Deliverables</th>
                 <th scope="col">Bibliographic References</th>
                 <th scope="col">Status</th>
+                <th scope="col">Assigned Students</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -97,6 +97,7 @@ export default function Thesis() {
                     <td>{thesis.deliverables}</td>
                     <td>{thesis.bibliographicReferences}</td>
                     <td>{thesis.status}</td>
+                    <td>{thesis.assignedStudents.join(", ")}</td>
                     <td>
                       <div className="d-inline-flex">
                         <Link

@@ -23,7 +23,6 @@ export default function AddThesis() {
     necessaryKnowledge: "",
     deliverables: "",
     bibliographicReferences: "",
-    status: "",
   });
 
   const validateInput = (field, value) => {
@@ -201,18 +200,6 @@ export default function AddThesis() {
                     {validation.bibliographicReferences}
                   </div>
                 )}
-                <label htmlFor="status">Status:</label>
-                <select
-                  className="form-control"
-                  id="status"
-                  name="status"
-                  value={thesis.status}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="available">Available</option>
-                  <option value="assigned">Assigned</option>
-                </select>
               </div>
               <button
                 type="button"

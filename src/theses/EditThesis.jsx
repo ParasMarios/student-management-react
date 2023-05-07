@@ -23,7 +23,6 @@ export default function EditThesis() {
     necessaryKnowledge: "",
     deliverables: "",
     bibliographicReferences: "",
-    status: "",
   });
 
   useEffect(() => {
@@ -219,21 +218,6 @@ export default function EditThesis() {
                   {validation.bibliographicReferences}
                 </div>
               )}
-            </div>
-            {/* Status */}
-            <div className="mb-3">
-              <label htmlFor="status">Status:</label>
-              <select
-                className="form-control"
-                id="status"
-                name="status"
-                value={thesis.status}
-                onChange={onInputChange}
-                required
-              >
-                <option value="available">Available</option>
-                <option value="assigned">Assigned</option>
-              </select>
             </div>
             <Link type="button" className="btn btn-danger mx-2" to={"/theses"}>
               Cancel

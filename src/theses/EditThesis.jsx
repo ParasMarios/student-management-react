@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import MilestoneForm from "./MilestoneForm";
 
 export default function EditThesis() {
   let navigate = useNavigate();
   const { title } = useParams();
+  const [milestones, setMilestones] = useState([]);
+
+  const addMilestone = (milestone) => {
+    setMilestones([...milestones, milestone]);
+  };
 
   const [thesis, setThesis] = useState({
     title: "",
@@ -31,6 +37,7 @@ export default function EditThesis() {
         `/theses/${encodeURIComponent(title)}`
       );
       setThesis(data);
+      setMilestones(data.milestones || []);
     };
     fetchThesis();
   }, [title]);
@@ -92,7 +99,10 @@ export default function EditThesis() {
     e.preventDefault();
 
     if (isFormValid()) {
-      await axiosInstance.patch(`/theses/${encodeURIComponent(title)}`, thesis);
+      await axiosInstance.patch(`/theses/${encodeURIComponent(title)}`, {
+        ...thesis,
+        milestones,
+      });
       navigate("/theses");
     }
   };
@@ -219,6 +229,11 @@ export default function EditThesis() {
                 </div>
               )}
             </div>
+            <MilestoneForm
+              milestones={milestones}
+              setMilestones={setMilestones}
+            />
+
             <Link type="button" className="btn btn-danger mx-2" to={"/theses"}>
               Cancel
             </Link>

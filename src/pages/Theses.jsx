@@ -2,10 +2,19 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { Link } from "react-router-dom";
 import NavbarThesis from "../layout/NavbarThesis";
+import DetailsThesis from "../theses/DetailsThesis";
 
 export default function Thesis() {
   const [theses, setTheses] = useState([]);
   const [search, setSearch] = useState("");
+  const [showDetails, setShowDetails] = useState({});
+
+  const toggleDetails = (id) => {
+    setShowDetails((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
 
   useEffect(() => {
     loadTheses();
@@ -81,7 +90,6 @@ export default function Thesis() {
                 <th scope="col">Deliverables</th>
                 <th scope="col">Bibliographic References</th>
                 <th scope="col">Status</th>
-                <th scope="col">Assigned Students</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -97,9 +105,14 @@ export default function Thesis() {
                     <td>{thesis.deliverables}</td>
                     <td>{thesis.bibliographicReferences}</td>
                     <td>{thesis.status}</td>
-                    <td>{thesis.assignedStudents.join(", ")}</td>
                     <td>
                       <div className="d-inline-flex">
+                        <button
+                          className="btn btn-outline-info mx-2"
+                          onClick={() => toggleDetails(thesis.id)}
+                        >
+                          Details
+                        </button>
                         <Link
                           className="btn btn-outline-warning mx-2"
                           to={`/app/theses/editthesis/${thesis.title}`}
@@ -113,6 +126,9 @@ export default function Thesis() {
                           Delete
                         </button>
                       </div>
+                      {showDetails[thesis.id] && (
+                        <DetailsThesis thesis={thesis} />
+                      )}
                     </td>
                   </tr>
                 ))}

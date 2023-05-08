@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import NavbarThesis from "../layout/NavbarThesis";
 import { useNavigate } from "react-router-dom";
+import MilestoneForm from "./MilestoneForm";
 
 export default function AddThesis() {
   let navigate = useNavigate();
+  const [milestones, setMilestones] = useState([]);
+
+  const addMilestone = (milestone) => {
+    setMilestones([...milestones, milestone]);
+  };
 
   const [thesis, setThesis] = useState({
     title: "",
@@ -92,7 +98,7 @@ export default function AddThesis() {
       alert("Invalid input!");
       return;
     }
-    await axiosInstance.post("/theses", thesis);
+    await axiosInstance.post("/theses", { ...thesis, milestones });
     navigate("/theses");
   };
 
@@ -201,6 +207,11 @@ export default function AddThesis() {
                   </div>
                 )}
               </div>
+              <MilestoneForm
+                milestones={milestones}
+                setMilestones={setMilestones}
+              />
+
               <button
                 type="button"
                 className="btn btn-danger mx-2 mt-3"

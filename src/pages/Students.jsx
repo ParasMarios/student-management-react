@@ -15,6 +15,14 @@ export default function Home() {
     setStudents(result.data);
   };
 
+  const deleteThesisFromTable = async (title) => {
+    try {
+      await axiosInstance.delete(`/theses/${encodeURIComponent(title)}`);
+    } catch (error) {
+      console.error("Error while deleting thesis:", error);
+    }
+  };
+
   const deleteStudent = async (email) => {
     if (window.confirm("Do you really want to delete this student?")) {
       const studentToDelete = students.find(
@@ -32,6 +40,9 @@ export default function Home() {
       await axiosInstance.delete(`/students/${email}`, {
         params: { reassignThesis },
       });
+      if (!reassignThesis) {
+        await deleteThesisFromTable(studentToDelete.thesisTitle);
+      }
       loadStudents();
     }
   };

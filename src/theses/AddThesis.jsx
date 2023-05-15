@@ -8,10 +8,6 @@ export default function AddThesis() {
   let navigate = useNavigate();
   const [milestones, setMilestones] = useState([]);
 
-  const addMilestone = (milestone) => {
-    setMilestones([...milestones, milestone]);
-  };
-
   const [thesis, setThesis] = useState({
     title: "",
     description: "",

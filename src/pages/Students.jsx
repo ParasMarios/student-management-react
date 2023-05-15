@@ -5,14 +5,23 @@ import Navbar from "../layout/Navbar";
 
 export default function Home() {
   const [students, setStudents] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     loadStudents();
   }, []);
 
   const loadStudents = async () => {
-    const result = await axiosInstance.get("/students");
-    setStudents(result.data);
+    try {
+      const result = await axiosInstance.get("/students");
+      setStudents(result.data);
+    } catch (error) {
+      if (error.response.status === 403) {
+        setError("You must log in to use CRUD operations.");
+      } else {
+        console.error("Error while loading students:", error);
+      }
+    }
   };
 
   const deleteThesisFromTable = async (title) => {
@@ -52,6 +61,7 @@ export default function Home() {
       <Navbar />
       <div className="container">
         <div className="py-4">
+          {error && <div className="alert alert-danger">{error}</div>}
           <table className="table table-dark table-hover">
             <thead>
               <tr>

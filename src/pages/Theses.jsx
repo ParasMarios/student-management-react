@@ -2,22 +2,13 @@ import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { Link } from "react-router-dom";
 import NavbarThesis from "../layout/NavbarThesis";
-import DetailsThesis from "../theses/DetailsThesis";
 import { useAuth } from "../auth/AuthContext";
 
 export default function Thesis() {
   const [theses, setTheses] = useState([]);
   const [search, setSearch] = useState("");
-  const [showDetails, setShowDetails] = useState({});
   const [statusFilter, setStatusFilter] = useState("");
   const { authState } = useAuth();
-
-  const toggleDetails = (id) => {
-    setShowDetails((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
-  };
 
   useEffect(() => {
     loadTheses();
@@ -127,15 +118,19 @@ export default function Thesis() {
                     <td>
                       {authState.isAuthenticated && (
                         <div className="d-inline-flex">
-                          <button
+                          <Link
                             className="btn btn-outline-info mx-2"
-                            onClick={() => toggleDetails(thesis.id)}
+                            to={`/app/theses/detailsthesis/${encodeURIComponent(
+                              thesis.title
+                            )}`}
                           >
                             Details
-                          </button>
+                          </Link>
                           <Link
                             className="btn btn-outline-warning mx-2"
-                            to={`/app/theses/editthesis/${thesis.title}`}
+                            to={`/app/theses/editthesis/${encodeURIComponent(
+                              thesis.title
+                            )}`}
                           >
                             Edit
                           </Link>
@@ -146,9 +141,6 @@ export default function Thesis() {
                             Delete
                           </button>
                         </div>
-                      )}
-                      {showDetails[thesis.id] && (
-                        <DetailsThesis thesis={thesis} />
                       )}
                     </td>
                   </tr>

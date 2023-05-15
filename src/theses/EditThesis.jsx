@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import MilestoneForm from "./MilestoneForm";
 
 export default function EditThesis() {
   let navigate = useNavigate();
   const { title } = useParams();
-  const [milestones, setMilestones] = useState([]);
-
-  const addMilestone = (milestone) => {
-    setMilestones([...milestones, milestone]);
-  };
 
   const [thesis, setThesis] = useState({
     title: "",
@@ -20,6 +14,10 @@ export default function EditThesis() {
     deliverables: "",
     bibliographicReferences: "",
     status: "available",
+    milestoneName: "",
+    milestoneDescription: "",
+    milestoneDate: "",
+    milestoneCompletionPercentage: 0,
   });
 
   const [validation, setValidation] = useState({
@@ -29,6 +27,10 @@ export default function EditThesis() {
     necessaryKnowledge: "",
     deliverables: "",
     bibliographicReferences: "",
+    milestoneName: "",
+    milestoneDescription: "",
+    milestoneDate: "",
+    milestoneCompletionPercentage: 0,
   });
 
   useEffect(() => {
@@ -37,7 +39,6 @@ export default function EditThesis() {
         `/theses/${encodeURIComponent(title)}`
       );
       setThesis(data);
-      setMilestones(data.milestones || []);
     };
     fetchThesis();
   }, [title]);
@@ -101,7 +102,6 @@ export default function EditThesis() {
     if (isFormValid()) {
       await axiosInstance.patch(`/theses/${encodeURIComponent(title)}`, {
         ...thesis,
-        milestones,
       });
       navigate("/theses");
     }
@@ -229,10 +229,68 @@ export default function EditThesis() {
                 </div>
               )}
             </div>
-            <MilestoneForm
-              milestones={milestones}
-              setMilestones={setMilestones}
-            />
+            {/* Milestone Name */}
+            <div className="mb-3">
+              <label htmlFor="milestoneName" className="form-label">
+                Milestone Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="milestoneName"
+                name="milestoneName"
+                placeholder="Enter milestone name"
+                value={thesis.milestoneName}
+                onChange={onInputChange}
+              />
+            </div>
+            {/* Milestone Description */}
+            <div className="mb-3">
+              <label htmlFor="milestoneDescription" className="form-label">
+                Milestone Description
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="milestoneDescription"
+                name="milestoneDescription"
+                placeholder="Enter milestone description"
+                value={thesis.milestoneDescription}
+                onChange={onInputChange}
+              />
+            </div>
+            {/* Milestone Date */}
+            <div className="mb-3">
+              <label htmlFor="milestoneDate" className="form-label">
+                Milestone Date
+              </label>
+              <input
+                type="date"
+                className="form-control"
+                id="milestoneDate"
+                name="milestoneDate"
+                value={thesis.milestoneDate}
+                onChange={onInputChange}
+              />
+            </div>
+            {/* Milestone Completion Percentage */}
+            <div className="mb-3">
+              <label
+                htmlFor="milestoneCompletionPercentage"
+                className="form-label"
+              >
+                Milestone Completion Percentage
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="milestoneCompletionPercentage"
+                name="milestoneCompletionPercentage"
+                placeholder="Enter milestone completion percentage"
+                value={thesis.milestoneCompletionPercentage}
+                onChange={onInputChange}
+              />
+            </div>
 
             <Link type="button" className="btn btn-danger mx-2" to={"/theses"}>
               Cancel

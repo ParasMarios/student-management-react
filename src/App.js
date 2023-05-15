@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 import Theses from "./pages/Theses";
 import AddThesis from "./theses/AddThesis";
 import EditThesis from "./theses/EditThesis";
+import DetailsThesis from "./theses/DetailsThesis";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
         <Route path="theses" element={<Theses />} />
         <Route path="/app/theses/addthesis" element={<AddThesis />} />
         <Route path="/app/theses/editthesis/:title" element={<EditThesis />} />
+        <Route
+          path="/app/theses/detailsthesis/:title"
+          element={<DetailsThesis />}
+        />
       </Routes>
     </AuthProvider>
   );

@@ -1,46 +1,70 @@
 import React, { useState } from "react";
 
-export default function MilestoneForm({ milestones = [], setMilestones }) {
-  const [name, setName] = useState("");
-  const [date, setDate] = useState("");
-  const [completionPercentage, setCompletionPercentage] = useState("");
-  const [description, setDescription] = useState("");
+const MilestoneForm = ({ milestones, setMilestones }) => {
+  const [milestone, setMilestone] = useState({
+    name: "",
+    description: "",
+    date: "",
+    completionPercentage: 0,
+  });
+
+  const handleInputChange = (e) => {
+    setMilestone({ ...milestone, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setMilestones([...milestones, milestone]);
+    setMilestone({
+      name: "",
+      description: "",
+      date: "",
+      completionPercentage: 0,
+    });
+  };
 
   return (
-    <div>
-      <h4>Milestones</h4>
-      <div>
-        <label>Name:</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Description:</label>
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Date:</label>
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Completion Percentage:</label>
-        <input
-          type="number"
-          value={completionPercentage}
-          onChange={(e) => setCompletionPercentage(e.target.value)}
-        />
-      </div>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="name">Milestone Name:</label>
+      <input
+        type="text"
+        name="name"
+        value={milestone.name}
+        onChange={handleInputChange}
+        required
+      />
+
+      <label htmlFor="description">Description:</label>
+      <textarea
+        name="description"
+        value={milestone.description}
+        onChange={handleInputChange}
+        required
+      />
+
+      <label htmlFor="date">Date:</label>
+      <input
+        type="date"
+        name="date"
+        value={milestone.date}
+        onChange={handleInputChange}
+        required
+      />
+
+      <label htmlFor="completionPercentage">Completion Percentage:</label>
+      <input
+        type="number"
+        min="0"
+        max="100"
+        name="completionPercentage"
+        value={milestone.completionPercentage}
+        onChange={handleInputChange}
+        required
+      />
+
+      <button type="submit">Add Milestone</button>
+    </form>
   );
-}
+};
+
+export default MilestoneForm;

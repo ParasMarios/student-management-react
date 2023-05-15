@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import NavbarThesis from "../layout/NavbarThesis";
 import { useNavigate } from "react-router-dom";
-import MilestoneForm from "./MilestoneForm";
 
 export default function AddThesis() {
   let navigate = useNavigate();
-  const [milestones, setMilestones] = useState([]);
 
   const [thesis, setThesis] = useState({
     title: "",
@@ -16,6 +14,10 @@ export default function AddThesis() {
     deliverables: "",
     bibliographicReferences: "",
     status: "available",
+    milestoneName: "",
+    milestoneDescription: "",
+    milestoneDate: "",
+    milestoneCompletionPercentage: 0,
   });
 
   const [validation, setValidation] = useState({
@@ -25,6 +27,10 @@ export default function AddThesis() {
     necessaryKnowledge: "",
     deliverables: "",
     bibliographicReferences: "",
+    milestoneName: "",
+    milestoneDescription: "",
+    milestoneDate: "",
+    milestoneCompletionPercentage: "",
   });
 
   const validateInput = (field, value) => {
@@ -71,14 +77,27 @@ export default function AddThesis() {
         break;
     }
 
-    setValidation({ ...validation, [field]: message });
+    setValidation({
+      ...validation,
+      [field]: message,
+    });
   };
 
   const isFormValid = () => {
-    return (
-      Object.values(validation).every((value) => !value) &&
-      Object.values(thesis).every((value) => value)
-    );
+    // Check validation messages
+    const isValidated = Object.values(validation).every((value) => !value);
+
+    // Check required fields
+    const hasRequiredValues = [
+      "title",
+      "description",
+      "maxNumberOfStudents",
+      "necessaryKnowledge",
+      "deliverables",
+      "bibliographicReferences",
+    ].every((field) => thesis[field]);
+
+    return isValidated && hasRequiredValues;
   };
 
   const handleChange = (e) => {
@@ -94,7 +113,7 @@ export default function AddThesis() {
       alert("Invalid input!");
       return;
     }
-    await axiosInstance.post("/theses", { ...thesis, milestones });
+    await axiosInstance.post("/theses", { ...thesis });
     navigate("/theses");
   };
 
@@ -203,9 +222,58 @@ export default function AddThesis() {
                   </div>
                 )}
               </div>
-              <MilestoneForm
-                milestones={milestones}
-                setMilestones={setMilestones}
+              <label htmlFor="milestoneName">Milestone Name:</label>
+              <input
+                type="text"
+                className="form-control"
+                id="milestoneName"
+                name="milestoneName"
+                placeholder="Enter milestone name"
+                value={thesis.milestoneName}
+                onChange={handleChange}
+              />
+              {validation["milestoneName"] && (
+                <div className="text-danger">{validation["milestoneName"]}</div>
+              )}
+              <label htmlFor="milestoneDescription">
+                Milestone Description:
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="milestoneDescription"
+                name="milestoneDescription"
+                placeholder="Enter milestone description"
+                value={thesis.milestoneDescription}
+                onChange={handleChange}
+              />
+              {validation["milestoneDescription"] && (
+                <div className="text-danger">
+                  {validation["milestoneDescription"]}
+                </div>
+              )}
+              <label htmlFor="milestoneDate">Milestone Date:</label>
+              <input
+                type="date"
+                className="form-control"
+                id="milestoneDate"
+                name="milestoneDate"
+                value={thesis.milestoneDate}
+                onChange={handleChange}
+              />
+              <label htmlFor="milestoneCompletionPercentage">
+                Milestone Completion Percentage:
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="milestoneCompletionPercentage"
+                name="milestoneCompletionPercentage"
+                min="0"
+                max="100"
+                placeholder="Enter completion percentage"
+                value={thesis.milestoneCompletionPercentage}
+                onChange={handleChange}
               />
 
               <button

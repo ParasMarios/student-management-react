@@ -8,6 +8,7 @@ export default function Thesis() {
   const [theses, setTheses] = useState([]);
   const [search, setSearch] = useState("");
   const [showDetails, setShowDetails] = useState({});
+  const [statusFilter, setStatusFilter] = useState("");
 
   const toggleDetails = (id) => {
     setShowDetails((prevState) => ({
@@ -34,8 +35,10 @@ export default function Thesis() {
     }
   };
 
-  const searchThesesByStatusContains = async (status) => {
-    const result = await axiosInstance.get(`/theses/status/contains/${status}`);
+  const searchThesesByTitleOrDescriptionContains = async (keyword, status) => {
+    const result = await axiosInstance.get(
+      `/theses/search/${keyword}?status=${status}`
+    );
     setTheses(result.data);
   };
 
@@ -43,14 +46,18 @@ export default function Thesis() {
     setSearch(e.target.value);
   };
 
+  const handleStatusFilterChange = (e) => {
+    setStatusFilter(e.target.value);
+  };
+
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    searchThesesByStatusContains(search);
+    searchThesesByTitleOrDescriptionContains(search, statusFilter);
   };
 
   const handleSearchKeyPress = (e) => {
     if (e.key === "Enter") {
-      searchThesesByStatusContains(search);
+      searchThesesByTitleOrDescriptionContains(search, statusFilter);
     }
   };
 
@@ -63,13 +70,23 @@ export default function Thesis() {
             <input
               type="text"
               className="form-control"
-              placeholder="Search by status"
-              aria-label="Search by status"
+              placeholder="Search by title or description"
+              aria-label="Search by title or description"
               aria-describedby="button-addon2"
               value={search}
               onChange={handleSearchChange}
               onKeyDown={handleSearchKeyPress}
             />
+            <select
+              className="form-control"
+              id="statusFilter"
+              name="statusFilter"
+              value={statusFilter}
+              onChange={handleStatusFilterChange}
+            >
+              <option value="">All statuses</option>
+              <option value="available">Available</option>
+            </select>
             <button
               className="btn btn-outline-secondary"
               type="button"

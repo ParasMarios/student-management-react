@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
 import { Link } from "react-router-dom";
 import Navbar from "../layout/Navbar";
+import { AuthContext } from "../auth/AuthContext";
 
 export default function Home() {
   const [students, setStudents] = useState([]);
-  const [error, setError] = useState("");
+  const { authState } = useContext(AuthContext);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    loadStudents();
-  }, []);
+    if (authState.isAuthenticated) {
+      loadStudents();
+    }
+  }, [authState]);
 
   const loadStudents = async () => {
     try {

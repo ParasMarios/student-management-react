@@ -275,18 +275,17 @@ export default function EditThesis() {
             </div>
             {/* Milestone Completion Percentage */}
             <div className="mb-3">
-              <label
-                htmlFor="milestoneCompletionPercentage"
-                className="form-label"
-              >
-                Milestone Completion Percentage
+              <label htmlFor="milestoneCompletionPercentage">
+                Milestone Completion Percentage:
+                {thesis.milestoneCompletionPercentage}%
               </label>
               <input
-                type="number"
-                className="form-control"
+                type="range"
+                className="form-range"
                 id="milestoneCompletionPercentage"
                 name="milestoneCompletionPercentage"
-                placeholder="Enter milestone completion percentage"
+                min="0"
+                max="100"
                 value={thesis.milestoneCompletionPercentage}
                 onChange={onInputChange}
               />

@@ -263,15 +263,15 @@ export default function AddThesis() {
               />
               <label htmlFor="milestoneCompletionPercentage">
                 Milestone Completion Percentage:
+                {thesis.milestoneCompletionPercentage}%
               </label>
               <input
-                type="number"
-                className="form-control"
+                type="range"
+                className="form-range"
                 id="milestoneCompletionPercentage"
                 name="milestoneCompletionPercentage"
                 min="0"
                 max="100"
-                placeholder="Enter completion percentage"
                 value={thesis.milestoneCompletionPercentage}
                 onChange={handleChange}
               />

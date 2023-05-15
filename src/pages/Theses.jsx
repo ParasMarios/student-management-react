@@ -3,12 +3,14 @@ import axiosInstance from "../axiosInstance";
 import { Link } from "react-router-dom";
 import NavbarThesis from "../layout/NavbarThesis";
 import DetailsThesis from "../theses/DetailsThesis";
+import { useAuth } from "../auth/AuthContext";
 
 export default function Thesis() {
   const [theses, setTheses] = useState([]);
   const [search, setSearch] = useState("");
   const [showDetails, setShowDetails] = useState({});
   const [statusFilter, setStatusFilter] = useState("");
+  const { authState } = useAuth();
 
   const toggleDetails = (id) => {
     setShowDetails((prevState) => ({
@@ -123,26 +125,28 @@ export default function Thesis() {
                     <td>{thesis.bibliographicReferences}</td>
                     <td>{thesis.status}</td>
                     <td>
-                      <div className="d-inline-flex">
-                        <button
-                          className="btn btn-outline-info mx-2"
-                          onClick={() => toggleDetails(thesis.id)}
-                        >
-                          Details
-                        </button>
-                        <Link
-                          className="btn btn-outline-warning mx-2"
-                          to={`/app/theses/editthesis/${thesis.title}`}
-                        >
-                          Edit
-                        </Link>
-                        <button
-                          className="btn btn-outline-danger"
-                          onClick={() => deleteThesis(thesis.title)}
-                        >
-                          Delete
-                        </button>
-                      </div>
+                      {authState.isAuthenticated && (
+                        <div className="d-inline-flex">
+                          <button
+                            className="btn btn-outline-info mx-2"
+                            onClick={() => toggleDetails(thesis.id)}
+                          >
+                            Details
+                          </button>
+                          <Link
+                            className="btn btn-outline-warning mx-2"
+                            to={`/app/theses/editthesis/${thesis.title}`}
+                          >
+                            Edit
+                          </Link>
+                          <button
+                            className="btn btn-outline-danger"
+                            onClick={() => deleteThesis(thesis.title)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
                       {showDetails[thesis.id] && (
                         <DetailsThesis thesis={thesis} />
                       )}

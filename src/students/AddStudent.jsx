@@ -5,7 +5,7 @@ import Navbar from "../layout/Navbar";
 
 export default function AddStudent() {
   let navigate = useNavigate();
-
+  const [errorMessage, setErrorMessage] = useState("");
   const [emailCheck, setEmailCheck] = useState(false);
 
   const [student, setStudent] = useState({
@@ -112,8 +112,20 @@ export default function AddStudent() {
     e.preventDefault();
 
     if (isFormValid()) {
-      await axiosInstance.post("/students", student);
-      navigate("/app/students", { replace: true });
+      try {
+        await axiosInstance.post("/students", student);
+        navigate("/app/students", { replace: true });
+      } catch (error) {
+        if (error.response && error.response.status === 500) {
+          setErrorMessage(
+            "The thesis title is already taken. Please choose a different one."
+          );
+        } else {
+          setErrorMessage(
+            "An error occurred while adding the student. Please try again."
+          );
+        }
+      }
     }
   };
 
@@ -221,6 +233,11 @@ export default function AddStudent() {
                 Submit
               </button>
             </form>
+            {errorMessage && (
+              <div className="alert alert-danger" role="alert">
+                {errorMessage}
+              </div>
+            )}
           </div>
         </div>
       </div>

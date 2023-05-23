@@ -46,6 +46,7 @@ export default function Home() {
       );
       let reassignThesis = false;
       if (studentsWithSameThesis.length === 1) {
+        // Check if there's only one other student with the same thesis
         reassignThesis = window.confirm(
           "Do you want to mark the relevant thesis as 'available'?"
         );
@@ -53,10 +54,12 @@ export default function Home() {
       await axiosInstance.delete(`/students/${email}`, {
         params: { reassignThesis },
       });
-      if (!reassignThesis) {
+      if (studentsWithSameThesis.length === 1 && !reassignThesis) {
+        // Only delete the thesis if this was the last student and the user didn't opt to reassign it
         await deleteThesisFromTable(studentToDelete.thesisTitle);
       }
       loadStudents();
+      window.location.reload();
     }
   };
 

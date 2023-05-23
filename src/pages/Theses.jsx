@@ -11,8 +11,10 @@ export default function Thesis() {
   const { authState } = useAuth();
 
   useEffect(() => {
-    loadTheses();
-  }, []);
+    if (authState.isAuthenticated) {
+      loadTheses();
+    }
+  }, [authState.isAuthenticated]);
 
   const loadTheses = async () => {
     const result = await axiosInstance.get("/theses");

@@ -90,9 +90,17 @@ export default function EditThesis() {
   };
 
   const isFormValid = () => {
+    const requiredThesisFields = {
+      title: thesis.title,
+      description: thesis.description,
+      necessaryKnowledge: thesis.necessaryKnowledge,
+      deliverables: thesis.deliverables,
+      bibliographicReferences: thesis.bibliographicReferences,
+    };
+
     return (
       Object.values(validation).every((value) => !value) &&
-      Object.values(thesis).every((value) => value)
+      Object.values(requiredThesisFields).every((value) => value)
     );
   };
 

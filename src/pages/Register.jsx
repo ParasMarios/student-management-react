@@ -19,7 +19,7 @@ export default function Register() {
         email,
         password,
       });
-      navigate("/app/home");
+      navigate("/app/students");
     } catch (error) {
       console.error("Error during registration", error);
       alert("Failed to register. Please check your information and try again.");

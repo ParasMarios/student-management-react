@@ -12,7 +12,7 @@ export default function Thesis() {
 
   useEffect(() => {
     loadTheses();
-  });
+  }, []);
 
   const loadTheses = async () => {
     const result = await axiosInstance.get("/theses");
@@ -30,7 +30,9 @@ export default function Thesis() {
 
   const searchThesesByTitleOrDescriptionContains = async (keyword, status) => {
     const result = await axiosInstance.get(
-      `/theses/search/${keyword}?status=${status}`
+      `/theses/search/${encodeURIComponent(
+        keyword
+      )}?status=${encodeURIComponent(status)}`
     );
     setTheses(result.data);
   };
@@ -79,6 +81,7 @@ export default function Thesis() {
             >
               <option value="">All statuses</option>
               <option value="available">Available</option>
+              <option value="Assigned">Assigned</option>
             </select>
             <button
               className="btn btn-outline-secondary"

@@ -23,6 +23,9 @@ export default function Navbar() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <div className="navbar-brand ms-5">Student Management System</div>
+          <Link className="btn btn-outline-primary me-2" to="/theses">
+            Theses
+          </Link>
           {authState.isAuthenticated && (
             <div className="ms-auto">
               <Link
@@ -37,6 +40,7 @@ export default function Navbar() {
               >
                 Add Student
               </Link>
+
               <button
                 className="btn btn-outline-warning"
                 onClick={handleLogout}

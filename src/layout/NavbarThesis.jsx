@@ -29,17 +29,9 @@ export default function NavbarThesis() {
           <Link className="navbar-brand ms-5" to="/">
             Thesis Management
           </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+          <Link className="btn btn-outline-primary me-2" to="/app/students">
+            Students
+          </Link>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {authState.isAuthenticated && (
               <div className="ms-auto">

@@ -1,9 +1,10 @@
 // src/pages/Register.js
-import React, { useState } from "react";
-import axiosInstance from "../axiosInstance";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const { registerUser } = useContext(AuthContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,12 +14,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axiosInstance.post("/auth/register", {
-        firstName,
-        lastName,
-        email,
-        password,
-      });
+      await registerUser(firstName, lastName, email, password);
       navigate("/app/students");
     } catch (error) {
       console.error("Error during registration", error);

@@ -1,17 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { loginUser } = useAuth();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginUser(email, password); // Use loginUser instead of login
+      await loginUser(email, password);
     } catch (error) {
       console.error("Error during login", error);
+      setErrorMessage(error.message);
     }
   };
 
@@ -20,6 +22,11 @@ export default function Login() {
       <div className="row my-5">
         <div className="col-md-4 col-lg-5 mx-auto">
           <h4>Login</h4>
+          {errorMessage && (
+            <div className="alert alert-danger" role="alert">
+              {errorMessage}
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">

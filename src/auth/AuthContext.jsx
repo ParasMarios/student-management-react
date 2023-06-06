@@ -54,6 +54,8 @@ export const AuthProvider = ({ children }) => {
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
+
+        throw new Error("username or password are wrong.");
       }
     }
   };

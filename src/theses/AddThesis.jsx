@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddThesis() {
   let navigate = useNavigate();
+  const [showMilestone, setShowMilestone] = useState(false);
 
   const [thesis, setThesis] = useState({
     title: "",
@@ -14,14 +15,7 @@ export default function AddThesis() {
     deliverables: "",
     bibliographicReferences: "",
     status: "available",
-    milestones: [
-      {
-        name: "",
-        description: "",
-        date: "",
-        completionPercentage: 0,
-      },
-    ],
+    milestones: [],
   });
 
   const [validation, setValidation] = useState({
@@ -126,6 +120,22 @@ export default function AddThesis() {
 
     await axiosInstance.post("/theses", newThesis);
     navigate("/theses");
+  };
+
+  const addMilestone = () => {
+    setThesis({
+      ...thesis,
+      milestones: [
+        ...thesis.milestones,
+        {
+          name: "",
+          description: "",
+          date: "",
+          completionPercentage: 0,
+        },
+      ],
+    });
+    setShowMilestone(true);
   };
 
   return (
@@ -233,69 +243,79 @@ export default function AddThesis() {
                   </div>
                 )}
               </div>
-              {thesis.milestones.map((milestone, index) => (
-                <div key={index}>
-                  <label htmlFor={`milestone-name-${index}`}>
-                    Milestone Name:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id={`milestone-name-${index}`}
-                    name={`milestone-name-${index}`}
-                    placeholder="Enter milestone name"
-                    value={milestone.name}
-                    onChange={handleChange}
-                  />
-                  {validation[`milestone-name-${index}`] && (
-                    <div className="text-danger">
-                      {validation[`milestone-name-${index}`]}
-                    </div>
-                  )}
-                  <label htmlFor={`milestone-description-${index}`}>
-                    Milestone Description:
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id={`milestone-description-${index}`}
-                    name={`milestone-description-${index}`}
-                    placeholder="Enter milestone description"
-                    value={milestone.description}
-                    onChange={handleChange}
-                  />
-                  {validation[`milestone-description-${index}`] && (
-                    <div className="text-danger">
-                      {validation[`milestone-description-${index}`]}
-                    </div>
-                  )}
-                  <label htmlFor={`milestone-date-${index}`}>
-                    Milestone Date:
-                  </label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    id={`milestone-date-${index}`}
-                    name={`milestone-date-${index}`}
-                    value={milestone.date}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor={`milestone-completionPercentage-${index}`}>
-                    Milestone Completion Percentage:
-                    {milestone.completionPercentage}%
-                  </label>
-                  <input
-                    type="range"
-                    className="form-range"
-                    id={`milestone-completionPercentage-${index}`}
-                    name={`milestone-completionPercentage-${index}`}
-                    min="0"
-                    max="100"
-                    value={milestone.completionPercentage}
-                    onChange={handleChange}
-                  />
-                </div>
-              ))}
+
+              {showMilestone &&
+                thesis.milestones.map((milestone, index) => (
+                  <div key={index}>
+                    <label htmlFor={`milestone-name-${index}`}>
+                      Milestone Name:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id={`milestone-name-${index}`}
+                      name={`milestone-name-${index}`}
+                      placeholder="Enter milestone name"
+                      value={milestone.name}
+                      onChange={handleChange}
+                    />
+                    {validation[`milestone-name-${index}`] && (
+                      <div className="text-danger">
+                        {validation[`milestone-name-${index}`]}
+                      </div>
+                    )}
+                    <label htmlFor={`milestone-description-${index}`}>
+                      Milestone Description:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id={`milestone-description-${index}`}
+                      name={`milestone-description-${index}`}
+                      placeholder="Enter milestone description"
+                      value={milestone.description}
+                      onChange={handleChange}
+                    />
+                    {validation[`milestone-description-${index}`] && (
+                      <div className="text-danger">
+                        {validation[`milestone-description-${index}`]}
+                      </div>
+                    )}
+                    <label htmlFor={`milestone-date-${index}`}>
+                      Milestone Date:
+                    </label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      id={`milestone-date-${index}`}
+                      name={`milestone-date-${index}`}
+                      value={milestone.date}
+                      onChange={handleChange}
+                    />
+                    <label htmlFor={`milestone-completionPercentage-${index}`}>
+                      Milestone Completion Percentage:
+                      {milestone.completionPercentage}%
+                    </label>
+                    <input
+                      type="range"
+                      className="form-range"
+                      id={`milestone-completionPercentage-${index}`}
+                      name={`milestone-completionPercentage-${index}`}
+                      min="0"
+                      max="100"
+                      value={milestone.completionPercentage}
+                      onChange={handleChange}
+                    />
+                  </div>
+                ))}
+
+              <button
+                type="button"
+                className="btn btn-info mx-2 mt-3"
+                onClick={addMilestone}
+              >
+                Add Milestone
+              </button>
               <button
                 type="button"
                 className="btn btn-danger mx-2 mt-3"

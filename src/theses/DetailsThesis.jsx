@@ -64,24 +64,30 @@ export default function DetailsThesis() {
         </p>
 
         {thesis.milestones && thesis.milestones.length > 0 ? (
-          thesis.milestones.map((milestone, index) => (
-            <div key={index}>
-              <h2>Milestone {index + 1}</h2>
-              <p>
-                <strong>Milestone Name:</strong> {milestone.name}
-              </p>
-              <p>
-                <strong>Milestone Description:</strong> {milestone.description}
-              </p>
-              <p>
-                <strong>Milestone Date:</strong> {milestone.date}
-              </p>
-              <p>
-                <strong>Milestone Completion Percentage:</strong>{" "}
-                {milestone.completionPercentage}
-              </p>
-            </div>
-          ))
+          thesis.milestones.map(
+            ({ name, description, date, completionPercentage }, index) => {
+              console.log("=============");
+              console.log("name:", name);
+              return (
+                <div key={name}>
+                  <h2>Milestone {index + 1}</h2>
+                  <p>
+                    <strong>Milestone Name:</strong> {name}
+                  </p>
+                  <p>
+                    <strong>Milestone Description:</strong> {description}
+                  </p>
+                  <p>
+                    <strong>Milestone Date:</strong> {date}
+                  </p>
+                  <p>
+                    <strong>Milestone Completion Percentage:</strong>{" "}
+                    {completionPercentage}
+                  </p>
+                </div>
+              );
+            }
+          )
         ) : (
           <p>No milestones</p>
         )}

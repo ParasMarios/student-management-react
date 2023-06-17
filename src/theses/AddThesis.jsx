@@ -309,13 +309,15 @@ export default function AddThesis() {
                   </div>
                 ))}
 
-              <button
-                type="button"
-                className="btn btn-info mx-2 mt-3"
-                onClick={addMilestone}
-              >
-                Add Milestone
-              </button>
+              <div className="form-group mt-3">
+                <button
+                  type="button"
+                  className="btn btn-secondary mb-3"
+                  onClick={addMilestone}
+                >
+                  Add Milestone
+                </button>
+              </div>
               <button
                 type="button"
                 className="btn btn-danger mx-2 mt-3"

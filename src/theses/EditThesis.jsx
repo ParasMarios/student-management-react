@@ -14,15 +14,19 @@ export default function EditThesis() {
     deliverables: "",
     bibliographicReferences: "",
     status: "available",
-    milestones: [
-      {
-        name: "",
-        description: "",
-        date: "",
-        completionPercentage: 0,
-      },
-    ],
+    milestones: [],
   });
+
+  const addNewMilestone = () => {
+    const newMilestone = {
+      name: "",
+      description: "",
+      date: "",
+      completionPercentage: 0,
+    };
+
+    setThesis({ ...thesis, milestones: [...thesis.milestones, newMilestone] });
+  };
 
   const [validation, setValidation] = useState({
     title: "",
@@ -309,6 +313,15 @@ export default function EditThesis() {
               </div>
             ))}
 
+            <div className="mb-3">
+              <button
+                type="button"
+                onClick={addNewMilestone}
+                className="btn btn-secondary mb-3"
+              >
+                New Milestone
+              </button>
+            </div>
             <Link type="button" className="btn btn-danger mx-2" to={"/theses"}>
               Cancel
             </Link>

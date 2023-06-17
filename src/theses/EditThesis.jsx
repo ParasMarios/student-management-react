@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditThesis() {
   let navigate = useNavigate();
@@ -322,12 +322,18 @@ export default function EditThesis() {
                 New Milestone
               </button>
             </div>
-            <Link type="button" className="btn btn-danger mx-2" to={"/theses"}>
-              Cancel
-            </Link>
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
+            <div className="d-flex justify-content-start">
+              <button
+                type="button"
+                className="btn btn-danger mr-2"
+                onClick={() => window.history.back()}
+              >
+                Cancel
+              </button>
+              <button type="submit" className="btn btn-primary mx-2">
+                Submit
+              </button>
+            </div>
           </form>
         </div>
       </div>

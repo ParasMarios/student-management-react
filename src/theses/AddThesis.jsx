@@ -320,12 +320,12 @@ export default function AddThesis() {
               </div>
               <button
                 type="button"
-                className="btn btn-danger mx-2 mt-3"
+                className="btn btn-danger mr-2"
                 onClick={() => navigate("/theses")}
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-primary mt-3">
+              <button type="submit" className="btn btn-primary mx-2">
                 Add Thesis
               </button>
             </form>

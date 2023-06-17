@@ -3,12 +3,17 @@ import axiosInstance from "../axiosInstance";
 import Navbar from "../layout/Navbar";
 import { AuthContext } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
-export default function Home() {
+const Home = () => {
   let navigate = useNavigate();
   const [students, setStudents] = useState([]);
   const { authState } = useContext(AuthContext);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isReassignModalOpen, setIsReassignModalOpen] = useState(false);
+  const [studentToDelete, setStudentToDelete] = useState(null);
 
   useEffect(() => {
     if (authState.isAuthenticated) {
@@ -29,6 +34,29 @@ export default function Home() {
     }
   };
 
+  const handleDelete = (student) => {
+    setIsModalOpen(true);
+    setStudentToDelete(student);
+  };
+
+  const handleConfirmDelete = async () => {
+    setIsModalOpen(false);
+    const studentsWithSameThesis = students.filter(
+      (student) => student.thesisTitle === studentToDelete.thesisTitle
+    );
+
+    if (studentsWithSameThesis.length === 1) {
+      setIsReassignModalOpen(true);
+    } else {
+      await deleteStudent(studentToDelete.email, false);
+    }
+  };
+
+  const handleReassignConfirmation = async (reassign) => {
+    setIsReassignModalOpen(false);
+    await deleteStudent(studentToDelete.email, reassign);
+  };
+
   const deleteThesisFromTable = async (title) => {
     try {
       await axiosInstance.delete(`/theses/${encodeURIComponent(title)}`);
@@ -37,31 +65,15 @@ export default function Home() {
     }
   };
 
-  const deleteStudent = async (email) => {
-    if (window.confirm("Do you really want to delete this student?")) {
-      const studentToDelete = students.find(
-        (student) => student.email === email
-      );
-      const studentsWithSameThesis = students.filter(
-        (student) => student.thesisTitle === studentToDelete.thesisTitle
-      );
-      let reassignThesis = false;
-      if (studentsWithSameThesis.length === 1) {
-        // Check if there's only one other student with the same thesis
-        reassignThesis = window.confirm(
-          "Do you want to mark the relevant thesis as 'available'?"
-        );
-      }
-      await axiosInstance.delete(`/students/${email}`, {
-        params: { reassignThesis },
-      });
-      if (studentsWithSameThesis.length === 1 && !reassignThesis) {
-        // Only delete the thesis if this was the last student and the user didn't opt to reassign it
-        await deleteThesisFromTable(studentToDelete.thesisTitle);
-      }
-      loadStudents();
-      window.location.reload();
+  const deleteStudent = async (email, reassignThesis) => {
+    await axiosInstance.delete(`/students/${email}`, {
+      params: { reassignThesis },
+    });
+    if (!reassignThesis) {
+      await deleteThesisFromTable(studentToDelete.thesisTitle);
     }
+    loadStudents();
+    window.location.reload();
   };
 
   return (
@@ -103,7 +115,7 @@ export default function Home() {
                       </button>
                       <button
                         className="btn btn-outline-danger mx-2"
-                        onClick={() => deleteStudent(student.email)}
+                        onClick={() => handleDelete(student)}
                       >
                         Delete
                       </button>
@@ -113,7 +125,48 @@ export default function Home() {
             </tbody>
           </table>
         </div>
+        <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Student</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Do you really want to delete this student?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleConfirmDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        <Modal
+          show={isReassignModalOpen}
+          onHide={() => setIsReassignModalOpen(false)}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Reassign Thesis</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Do you want to mark the relevant thesis as 'available'?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={() => handleReassignConfirmation(false)}
+            >
+              No
+            </Button>
+            <Button
+              variant="danger"
+              onClick={() => handleReassignConfirmation(true)}
+            >
+              Yes
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   );
-}
+};
+
+export default Home;

@@ -94,7 +94,7 @@ export default function Home() {
                     <td>{student.comments}</td>
                     <td>
                       <button
-                        className="btn btn-outline-warning mx-2"
+                        className="btn btn-outline-warning"
                         onClick={() =>
                           navigate(`/app/editstudent/${student.email}`)
                         }
@@ -102,7 +102,7 @@ export default function Home() {
                         Edit
                       </button>
                       <button
-                        className="btn btn-outline-danger"
+                        className="btn btn-outline-danger mx-2"
                         onClick={() => deleteStudent(student.email)}
                       >
                         Delete

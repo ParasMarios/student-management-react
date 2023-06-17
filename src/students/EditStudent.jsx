@@ -114,12 +114,12 @@ export default function EditStudent() {
             </div>
             <button
               type="button"
-              className="btn btn-danger mx-2"
+              className="btn btn-danger"
               onClick={() => navigate("/app/students")}
             >
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary mx-2">
               Submit
             </button>
           </form>

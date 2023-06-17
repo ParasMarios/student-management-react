@@ -123,7 +123,7 @@ export default function Thesis() {
                       {authState.isAuthenticated && (
                         <div className="d-inline-flex">
                           <button
-                            className="btn btn-outline-info mx-2"
+                            className="btn btn-outline-info"
                             onClick={() =>
                               navigate(
                                 `/app/theses/detailsthesis/${encodeURIComponent(

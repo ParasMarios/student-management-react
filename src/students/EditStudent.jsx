@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditStudent() {
   let navigate = useNavigate();
@@ -112,13 +112,13 @@ export default function EditStudent() {
                 <div className="text-danger">{validation.comments}</div>
               )}
             </div>
-            <Link
+            <button
               type="button"
               className="btn btn-danger mx-2"
-              to={"/app/students"}
+              onClick={() => navigate("/app/students")}
             >
               Cancel
-            </Link>
+            </button>
             <button type="submit" className="btn btn-primary">
               Submit
             </button>

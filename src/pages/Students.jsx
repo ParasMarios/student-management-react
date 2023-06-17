@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
-import { Link } from "react-router-dom";
 import Navbar from "../layout/Navbar";
 import { AuthContext } from "../auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  let navigate = useNavigate();
   const [students, setStudents] = useState([]);
   const { authState } = useContext(AuthContext);
   const [error, setError] = useState(null);
@@ -92,12 +93,14 @@ export default function Home() {
                     <td>{student.thesisTitle}</td>
                     <td>{student.comments}</td>
                     <td>
-                      <Link
+                      <button
                         className="btn btn-outline-warning mx-2"
-                        to={`/app/editstudent/${student.email}`}
+                        onClick={() =>
+                          navigate(`/app/editstudent/${student.email}`)
+                        }
                       >
                         Edit
-                      </Link>
+                      </button>
                       <button
                         className="btn btn-outline-danger"
                         onClick={() => deleteStudent(student.email)}

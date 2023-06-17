@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "../axiosInstance";
-import { Link } from "react-router-dom";
 import NavbarThesis from "../layout/NavbarThesis";
 import { useAuth } from "../auth/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Thesis() {
+  let navigate = useNavigate();
   const [theses, setTheses] = useState([]);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -121,22 +122,30 @@ export default function Thesis() {
                     <td>
                       {authState.isAuthenticated && (
                         <div className="d-inline-flex">
-                          <Link
+                          <button
                             className="btn btn-outline-info mx-2"
-                            to={`/app/theses/detailsthesis/${encodeURIComponent(
-                              thesis.title
-                            )}`}
+                            onClick={() =>
+                              navigate(
+                                `/app/theses/detailsthesis/${encodeURIComponent(
+                                  thesis.title
+                                )}`
+                              )
+                            }
                           >
                             Details
-                          </Link>
-                          <Link
+                          </button>
+                          <button
                             className="btn btn-outline-warning mx-2"
-                            to={`/app/theses/editthesis/${encodeURIComponent(
-                              thesis.title
-                            )}`}
+                            onClick={() =>
+                              navigate(
+                                `/app/theses/editthesis/${encodeURIComponent(
+                                  thesis.title
+                                )}`
+                              )
+                            }
                           >
                             Edit
-                          </Link>
+                          </button>
                           <button
                             className="btn btn-outline-danger"
                             onClick={() => deleteThesis(thesis.title)}

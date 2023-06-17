@@ -63,6 +63,19 @@ export default function DetailsThesis() {
           <strong>Status:</strong> {thesis.status}
         </p>
 
+        <div>
+          <strong>Assigned Students:</strong>
+          {thesis.assignedStudents && thesis.assignedStudents.length > 0 ? (
+            <ul>
+              {thesis.assignedStudents.map((student, index) => (
+                <li key={index}>{student}</li>
+              ))}
+            </ul>
+          ) : (
+            " No students assigned"
+          )}
+        </div>
+
         {thesis.milestones && thesis.milestones.length > 0 ? (
           thesis.milestones.map(
             ({ name, description, date, completionPercentage }, index) => {
@@ -91,19 +104,6 @@ export default function DetailsThesis() {
         ) : (
           <p>No milestones</p>
         )}
-
-        <div>
-          <strong>Assigned Students:</strong>
-          {thesis.assignedStudents && thesis.assignedStudents.length > 0 ? (
-            <ul>
-              {thesis.assignedStudents.map((student, index) => (
-                <li key={index}>{student}</li>
-              ))}
-            </ul>
-          ) : (
-            " No students assigned"
-          )}
-        </div>
       </div>
     </div>
   );

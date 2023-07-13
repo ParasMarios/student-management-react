@@ -151,7 +151,7 @@ export default function Thesis() {
                             Edit
                           </button>
                           <button
-                            className="btn btn-outline-danger"
+                            className="btn btn-danger"
                             onClick={() => deleteThesis(thesis.title)}
                           >
                             Delete

@@ -81,7 +81,7 @@ export default function Thesis() {
               onChange={handleStatusFilterChange}
             >
               <option value="">All statuses</option>
-              <option value="available">Available</option>
+              <option value="Available">Available</option>
               <option value="Assigned">Assigned</option>
             </select>
             <button
@@ -118,7 +118,11 @@ export default function Thesis() {
                     <td>{thesis.necessaryKnowledge}</td>
                     <td>{thesis.deliverables}</td>
                     <td>{thesis.bibliographicReferences}</td>
-                    <td>{thesis.status}</td>
+                    <td>
+                      {thesis.status.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
+                        letter.toUpperCase()
+                      )}
+                    </td>
                     <td>
                       {authState.isAuthenticated && (
                         <div className="d-inline-flex">

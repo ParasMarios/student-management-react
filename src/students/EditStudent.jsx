@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditStudent() {
   let navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { email: studentEmail } = useParams();
 
@@ -67,8 +68,20 @@ export default function EditStudent() {
     e.preventDefault();
 
     if (isFormValid()) {
-      await axiosInstance.patch(`/students/${studentEmail}`, student);
-      navigate("/app/students");
+      try {
+        await axiosInstance.patch(`/students/${studentEmail}`, student);
+        navigate("/app/students");
+      } catch (error) {
+        if (error.response && error.response.status === 500) {
+          setErrorMessage(
+            "The thesis title is already taken. Please choose a different one."
+          );
+        } else {
+          setErrorMessage(
+            "An error occurred while editing the student. Please try again."
+          );
+        }
+      }
     }
   };
 
@@ -123,6 +136,9 @@ export default function EditStudent() {
               Submit
             </button>
           </form>
+          {errorMessage && (
+            <div className="alert alert-danger">{errorMessage}</div>
+          )}
         </div>
       </div>
     </div>

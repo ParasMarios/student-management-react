@@ -25,4 +25,4 @@ jobs:
           context: .
           dockerfile: Dockerfile
           push: true
-          tags: gouvis/student-management-react:latest
+          tags: gouvis/student-management-front:latest

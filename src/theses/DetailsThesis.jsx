@@ -79,8 +79,6 @@ export default function DetailsThesis() {
         {thesis.milestones && thesis.milestones.length > 0 ? (
           thesis.milestones.map(
             ({ name, description, date, completionPercentage }, index) => {
-              console.log("=============");
-              console.log("name:", name);
               return (
                 <div key={name}>
                   <h2>Milestone {index + 1}</h2>

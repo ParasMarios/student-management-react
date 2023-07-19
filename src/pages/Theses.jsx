@@ -20,9 +20,9 @@ export default function Thesis() {
     setTheses(result.data);
   };
 
-  const deleteThesis = async (title) => {
+  const deleteThesis = async (id) => {
     try {
-      await axiosInstance.delete(`/theses/${encodeURIComponent(title)}`);
+      await axiosInstance.delete(`/theses/${encodeURIComponent(id)}`);
       loadTheses();
     } catch (error) {
       console.error("Error while deleting thesis:", error);
@@ -131,7 +131,7 @@ export default function Thesis() {
                             onClick={() =>
                               navigate(
                                 `/app/theses/detailsthesis/${encodeURIComponent(
-                                  thesis.title
+                                  thesis.id
                                 )}`
                               )
                             }
@@ -143,7 +143,7 @@ export default function Thesis() {
                             onClick={() =>
                               navigate(
                                 `/app/theses/editthesis/${encodeURIComponent(
-                                  thesis.title
+                                  thesis.id
                                 )}`
                               )
                             }

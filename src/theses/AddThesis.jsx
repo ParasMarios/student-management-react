@@ -162,7 +162,7 @@ export default function AddThesis() {
                   <div className="text-danger">{validation.title}</div>
                 )}
                 <label htmlFor="description">Description:</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="description"
@@ -195,7 +195,7 @@ export default function AddThesis() {
                   </div>
                 )}
                 <label htmlFor="necessaryKnowledge">Necessary Knowledge:</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="necessaryKnowledge"
@@ -211,7 +211,7 @@ export default function AddThesis() {
                   </div>
                 )}
                 <label htmlFor="deliverables">Deliverables:</label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="deliverables"
@@ -227,7 +227,7 @@ export default function AddThesis() {
                 <label htmlFor="bibliographicReferences">
                   Bibliographic References:
                 </label>
-                <input
+                <textarea
                   type="text"
                   className="form-control"
                   id="bibliographicReferences"
@@ -267,7 +267,7 @@ export default function AddThesis() {
                     <label htmlFor={`milestone-description-${index}`}>
                       Milestone Description:
                     </label>
-                    <input
+                    <textarea
                       type="text"
                       className="form-control"
                       id={`milestone-description-${index}`}

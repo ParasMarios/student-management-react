@@ -146,6 +146,7 @@ export default function EditThesis() {
                 placeholder="Enter title"
                 value={thesis.title}
                 onChange={onInputChange}
+                readOnly={thesis.status === "Assigned"}
               />
               {validation.title && (
                 <div className="text-danger">{validation.title}</div>
@@ -156,8 +157,7 @@ export default function EditThesis() {
               <label htmlFor="description" className="form-label">
                 Description
               </label>
-              <input
-                type="text"
+              <textarea
                 className="form-control"
                 id="description"
                 name="description"
@@ -181,6 +181,7 @@ export default function EditThesis() {
                 value={thesis.maxNumberOfStudents}
                 onChange={onInputChange}
                 required
+                disabled={thesis.status === "Assigned"}
               >
                 <option value={1}>1</option>
                 <option value={2}>2</option>
@@ -196,8 +197,7 @@ export default function EditThesis() {
               <label htmlFor="necessaryKnowledge" className="form-label">
                 Necessary Knowledge
               </label>
-              <input
-                type="text"
+              <textarea
                 className="form-control"
                 id="necessaryKnowledge"
                 name="necessaryKnowledge"
@@ -216,8 +216,7 @@ export default function EditThesis() {
               <label htmlFor="deliverables" className="form-label">
                 Deliverables
               </label>
-              <input
-                type="text"
+              <textarea
                 className="form-control"
                 id="deliverables"
                 name="deliverables"
@@ -234,8 +233,7 @@ export default function EditThesis() {
               <label htmlFor="bibliographicReferences" className="form-label">
                 Bibliographic References
               </label>
-              <input
-                type="text"
+              <textarea
                 className="form-control"
                 id="bibliographicReferences"
                 name="bibliographicReferences"
@@ -271,8 +269,7 @@ export default function EditThesis() {
                 <label htmlFor={`milestone-description-${index}`}>
                   Milestone Description:
                 </label>
-                <input
-                  type="text"
+                <textarea
                   className="form-control"
                   id={`milestone-description-${index}`}
                   name={`milestone-description-${index}`}

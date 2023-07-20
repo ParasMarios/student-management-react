@@ -138,9 +138,9 @@ export default function Thesis() {
                             className="btn btn-outline-info"
                             onClick={() =>
                               navigate(
-                                `/app/theses/detailsthesis/${encodeURIComponent(
+                                `/app/theses/${encodeURIComponent(
                                   thesis.id
-                                )}`
+                                )}/details`
                               )
                             }
                           >
@@ -150,9 +150,9 @@ export default function Thesis() {
                             className="btn btn-outline-warning mx-2"
                             onClick={() =>
                               navigate(
-                                `/app/theses/editthesis/${encodeURIComponent(
+                                `/app/theses/${encodeURIComponent(
                                   thesis.id
-                                )}`
+                                )}/edit`
                               )
                             }
                           >

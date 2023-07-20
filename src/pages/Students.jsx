@@ -107,9 +107,7 @@ const Home = () => {
                     <td>
                       <button
                         className="btn btn-outline-warning"
-                        onClick={() =>
-                          navigate(`/app/editstudent/${student.email}`)
-                        }
+                        onClick={() => navigate(`/app/${student.email}/edit`)}
                       >
                         Edit
                       </button>

@@ -21,14 +21,11 @@ function App() {
         <Route path="/app" element={<PrivateRoute />} />
         <Route path="/app/students" element={<Students />} />
         <Route path="/app/addstudent" element={<AddStudent />} />
-        <Route path="/app/editstudent/:email" element={<EditStudent />} />
+        <Route path="/app/:email/edit" element={<EditStudent />} />
         <Route path="theses" element={<Theses />} />
         <Route path="/app/theses/addthesis" element={<AddThesis />} />
-        <Route path="/app/theses/editthesis/:title" element={<EditThesis />} />
-        <Route
-          path="/app/theses/detailsthesis/:title"
-          element={<DetailsThesis />}
-        />
+        <Route path="/app/theses/:title/edit" element={<EditThesis />} />
+        <Route path="/app/theses/:title/details" element={<DetailsThesis />} />
       </Routes>
     </AuthProvider>
   );

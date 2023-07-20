@@ -77,28 +77,31 @@ export default function DetailsThesis() {
         </div>
 
         {thesis.milestones && thesis.milestones.length > 0 ? (
-          thesis.milestones.map(
-            ({ name, description, date, completionPercentage }, index) => {
-              return (
-                <div key={name}>
-                  <h2>Milestone {index + 1}</h2>
-                  <p>
-                    <strong>Milestone Name:</strong> {name}
-                  </p>
-                  <p>
-                    <strong>Milestone Description:</strong> {description}
-                  </p>
-                  <p>
-                    <strong>Milestone Date:</strong> {date}
-                  </p>
-                  <p>
-                    <strong>Milestone Completion Percentage:</strong>{" "}
-                    {completionPercentage}
-                  </p>
-                </div>
-              );
-            }
-          )
+          <fieldset className="border p-3 mt-3">
+            <legend>Thesis Milestones</legend>
+            {thesis.milestones.map(
+              ({ name, description, date, completionPercentage }, index) => {
+                return (
+                  <div key={name}>
+                    <h2>Milestone {index + 1}</h2>
+                    <p>
+                      <strong>Milestone Name:</strong> {name}
+                    </p>
+                    <p>
+                      <strong>Milestone Description:</strong> {description}
+                    </p>
+                    <p>
+                      <strong>Milestone Date:</strong> {date}
+                    </p>
+                    <p>
+                      <strong>Milestone Completion Percentage:</strong>{" "}
+                      {completionPercentage}
+                    </p>
+                  </div>
+                );
+              }
+            )}
+          </fieldset>
         ) : (
           <p>No milestones</p>
         )}

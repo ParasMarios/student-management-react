@@ -243,71 +243,75 @@ export default function AddThesis() {
                   </div>
                 )}
               </div>
-
-              {showMilestone &&
-                thesis.milestones.map((milestone, index) => (
-                  <div key={index}>
-                    <label htmlFor={`milestone-name-${index}`}>
-                      Milestone Name:
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id={`milestone-name-${index}`}
-                      name={`milestone-name-${index}`}
-                      placeholder="Enter milestone name"
-                      value={milestone.name}
-                      onChange={handleChange}
-                    />
-                    {validation[`milestone-name-${index}`] && (
-                      <div className="text-danger">
-                        {validation[`milestone-name-${index}`]}
-                      </div>
-                    )}
-                    <label htmlFor={`milestone-description-${index}`}>
-                      Milestone Description:
-                    </label>
-                    <textarea
-                      type="text"
-                      className="form-control"
-                      id={`milestone-description-${index}`}
-                      name={`milestone-description-${index}`}
-                      placeholder="Enter milestone description"
-                      value={milestone.description}
-                      onChange={handleChange}
-                    />
-                    {validation[`milestone-description-${index}`] && (
-                      <div className="text-danger">
-                        {validation[`milestone-description-${index}`]}
-                      </div>
-                    )}
-                    <label htmlFor={`milestone-date-${index}`}>
-                      Milestone Date:
-                    </label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      id={`milestone-date-${index}`}
-                      name={`milestone-date-${index}`}
-                      value={milestone.date}
-                      onChange={handleChange}
-                    />
-                    <label htmlFor={`milestone-completionPercentage-${index}`}>
-                      Milestone Completion Percentage:
-                      {milestone.completionPercentage}%
-                    </label>
-                    <input
-                      type="range"
-                      className="form-range"
-                      id={`milestone-completionPercentage-${index}`}
-                      name={`milestone-completionPercentage-${index}`}
-                      min="0"
-                      max="100"
-                      value={milestone.completionPercentage}
-                      onChange={handleChange}
-                    />
-                  </div>
-                ))}
+              <fieldset className="border p-3 mt-3">
+                <legend>Milestones</legend>
+                {showMilestone &&
+                  thesis.milestones.map((milestone, index) => (
+                    <div key={index}>
+                      <label htmlFor={`milestone-name-${index}`}>
+                        Milestone Name:
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id={`milestone-name-${index}`}
+                        name={`milestone-name-${index}`}
+                        placeholder="Enter milestone name"
+                        value={milestone.name}
+                        onChange={handleChange}
+                      />
+                      {validation[`milestone-name-${index}`] && (
+                        <div className="text-danger">
+                          {validation[`milestone-name-${index}`]}
+                        </div>
+                      )}
+                      <label htmlFor={`milestone-description-${index}`}>
+                        Milestone Description:
+                      </label>
+                      <textarea
+                        type="text"
+                        className="form-control"
+                        id={`milestone-description-${index}`}
+                        name={`milestone-description-${index}`}
+                        placeholder="Enter milestone description"
+                        value={milestone.description}
+                        onChange={handleChange}
+                      />
+                      {validation[`milestone-description-${index}`] && (
+                        <div className="text-danger">
+                          {validation[`milestone-description-${index}`]}
+                        </div>
+                      )}
+                      <label htmlFor={`milestone-date-${index}`}>
+                        Milestone Date:
+                      </label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        id={`milestone-date-${index}`}
+                        name={`milestone-date-${index}`}
+                        value={milestone.date}
+                        onChange={handleChange}
+                      />
+                      <label
+                        htmlFor={`milestone-completionPercentage-${index}`}
+                      >
+                        Milestone Completion Percentage:
+                        {milestone.completionPercentage}%
+                      </label>
+                      <input
+                        type="range"
+                        className="form-range"
+                        id={`milestone-completionPercentage-${index}`}
+                        name={`milestone-completionPercentage-${index}`}
+                        min="0"
+                        max="100"
+                        value={milestone.completionPercentage}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  ))}
+              </fieldset>
 
               <div className="form-group mt-3">
                 <button

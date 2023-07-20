@@ -247,68 +247,71 @@ export default function EditThesis() {
                 </div>
               )}
             </div>
-            {thesis.milestones.map((milestone, index) => (
-              <div key={index}>
-                <label htmlFor={`milestone-name-${index}`}>
-                  Milestone Name:
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id={`milestone-name-${index}`}
-                  name={`milestone-name-${index}`}
-                  placeholder="Enter milestone name"
-                  value={milestone.name}
-                  onChange={onInputChange}
-                />
-                {validation[`milestone-name-${index}`] && (
-                  <div className="text-danger">
-                    {validation[`milestone-name-${index}`]}
-                  </div>
-                )}
-                <label htmlFor={`milestone-description-${index}`}>
-                  Milestone Description:
-                </label>
-                <textarea
-                  className="form-control"
-                  id={`milestone-description-${index}`}
-                  name={`milestone-description-${index}`}
-                  placeholder="Enter milestone description"
-                  value={milestone.description}
-                  onChange={onInputChange}
-                />
-                {validation[`milestone-description-${index}`] && (
-                  <div className="text-danger">
-                    {validation[`milestone-description-${index}`]}
-                  </div>
-                )}
-                <label htmlFor={`milestone-date-${index}`}>
-                  Milestone Date:
-                </label>
-                <input
-                  type="date"
-                  className="form-control"
-                  id={`milestone-date-${index}`}
-                  name={`milestone-date-${index}`}
-                  value={milestone.date}
-                  onChange={onInputChange}
-                />
-                <label htmlFor={`milestone-completionPercentage-${index}`}>
-                  Milestone Completion Percentage:
-                  {milestone.completionPercentage}%
-                </label>
-                <input
-                  type="range"
-                  className="form-range"
-                  id={`milestone-completionPercentage-${index}`}
-                  name={`milestone-completionPercentage-${index}`}
-                  min="0"
-                  max="100"
-                  value={milestone.completionPercentage}
-                  onChange={onInputChange}
-                />
-              </div>
-            ))}
+            <fieldset className="border p-3 mt-3">
+              <legend>Milestones</legend>
+              {thesis.milestones.map((milestone, index) => (
+                <div key={index}>
+                  <label htmlFor={`milestone-name-${index}`}>
+                    Milestone Name:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id={`milestone-name-${index}`}
+                    name={`milestone-name-${index}`}
+                    placeholder="Enter milestone name"
+                    value={milestone.name}
+                    onChange={onInputChange}
+                  />
+                  {validation[`milestone-name-${index}`] && (
+                    <div className="text-danger">
+                      {validation[`milestone-name-${index}`]}
+                    </div>
+                  )}
+                  <label htmlFor={`milestone-description-${index}`}>
+                    Milestone Description:
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id={`milestone-description-${index}`}
+                    name={`milestone-description-${index}`}
+                    placeholder="Enter milestone description"
+                    value={milestone.description}
+                    onChange={onInputChange}
+                  />
+                  {validation[`milestone-description-${index}`] && (
+                    <div className="text-danger">
+                      {validation[`milestone-description-${index}`]}
+                    </div>
+                  )}
+                  <label htmlFor={`milestone-date-${index}`}>
+                    Milestone Date:
+                  </label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    id={`milestone-date-${index}`}
+                    name={`milestone-date-${index}`}
+                    value={milestone.date}
+                    onChange={onInputChange}
+                  />
+                  <label htmlFor={`milestone-completionPercentage-${index}`}>
+                    Milestone Completion Percentage:
+                    {milestone.completionPercentage}%
+                  </label>
+                  <input
+                    type="range"
+                    className="form-range"
+                    id={`milestone-completionPercentage-${index}`}
+                    name={`milestone-completionPercentage-${index}`}
+                    min="0"
+                    max="100"
+                    value={milestone.completionPercentage}
+                    onChange={onInputChange}
+                  />
+                </div>
+              ))}
+            </fieldset>
 
             <div className="mb-3">
               <button

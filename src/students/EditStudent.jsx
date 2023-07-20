@@ -13,6 +13,7 @@ export default function EditStudent() {
     comments: "",
   });
 
+  const [availableTheses, setAvailableTheses] = useState([]);
   const [validation, setValidation] = useState({
     thesisTitle: "",
     comments: "",
@@ -48,7 +49,24 @@ export default function EditStudent() {
       const { data } = await axiosInstance.get(`/students/${studentEmail}`);
       setStudent({ thesisTitle: data.thesisTitle, comments: data.comments });
     };
+
+    const fetchAvailableTheses = async () => {
+      try {
+        const response = await axiosInstance.get("/theses");
+        const availableThesesData = response.data.filter(
+          (thesis) =>
+            thesis.status === "Available" ||
+            (thesis.status === "Assigned" &&
+              thesis.assignedStudents.length < thesis.maxNumberOfStudents)
+        );
+        setAvailableTheses(availableThesesData);
+      } catch (error) {
+        console.error("Error while fetching available theses:", error);
+      }
+    };
+
     fetchStudent();
+    fetchAvailableTheses();
   }, [studentEmail]);
 
   const onInputChange = (e) => {
@@ -91,19 +109,24 @@ export default function EditStudent() {
         <div className="col-md-6 shadow mx-auto p-5">
           <h2 className="text-center mb-4">Edit Student</h2>
           <form onSubmit={(e) => onSubmit(e)}>
-            {/* Thesis Title */}
+            {/* Thesis Title Dropdown */}
             <div className="mb-3">
               <label htmlFor="thesisTitle" className="form-label">
                 Thesis Title
               </label>
-              <input
-                type="text"
-                className="form-control"
+              <select
+                className="form-select"
                 id="thesisTitle"
-                placeholder="Enter thesis title"
                 value={thesisTitle}
                 onChange={(e) => onInputChange(e)}
-              />
+              >
+                <option value="">Select a thesis title</option>
+                {availableTheses.map((thesis) => (
+                  <option key={thesis.id} value={thesis.title}>
+                    {thesis.title}
+                  </option>
+                ))}
+              </select>
               {validation.thesisTitle && (
                 <div className="text-danger">{validation.thesisTitle}</div>
               )}

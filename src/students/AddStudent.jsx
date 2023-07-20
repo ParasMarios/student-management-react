@@ -52,8 +52,8 @@ export default function AddStudent() {
         const response = await axiosInstance.get("/theses");
         const availableThesesData = response.data.filter(
           (thesis) =>
-            thesis.status === "available" ||
-            (thesis.status === "assigned" &&
+            thesis.status === "Available" ||
+            (thesis.status === "Assigned" &&
               thesis.assignedStudents.length < thesis.maxNumberOfStudents)
         );
         setAvailableTheses(availableThesesData);

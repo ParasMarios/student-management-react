@@ -7,6 +7,7 @@ export default function AddStudent() {
   let navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [emailCheck, setEmailCheck] = useState(false);
+  const [availableTheses, setAvailableTheses] = useState([]);
 
   const [student, setStudent] = useState({
     firstName: "",
@@ -26,6 +27,11 @@ export default function AddStudent() {
 
   const { firstName, lastName, email, thesisTitle, comments } = student;
 
+  const onThesisTitleChange = (e) => {
+    const { value } = e.target;
+    setStudent({ ...student, thesisTitle: value });
+  };
+
   const checkEmailExists = async (email) => {
     try {
       const response = await axiosInstance.get(`/students/checkEmail/${email}`);
@@ -39,6 +45,24 @@ export default function AddStudent() {
       }
     }
   };
+
+  useEffect(() => {
+    const fetchAvailableTheses = async () => {
+      try {
+        const response = await axiosInstance.get("/theses");
+        const availableThesesData = response.data.filter(
+          (thesis) =>
+            thesis.status === "available" ||
+            (thesis.status === "assigned" &&
+              thesis.assignedStudents.length < thesis.maxNumberOfStudents)
+        );
+        setAvailableTheses(availableThesesData);
+      } catch (error) {
+        console.error("Error while fetching available theses:", error);
+      }
+    };
+    fetchAvailableTheses();
+  }, []);
 
   useEffect(() => {
     if (emailCheck) {
@@ -193,14 +217,19 @@ export default function AddStudent() {
                 <label htmlFor="thesisTitle" className="form-label">
                   Thesis Title
                 </label>
-                <input
-                  type="text"
-                  className="form-control"
+                <select
+                  className="form-select"
                   id="thesisTitle"
-                  placeholder="Enter thesis title"
                   value={thesisTitle}
-                  onChange={(e) => onInputChange(e)}
-                />
+                  onChange={(e) => onThesisTitleChange(e)}
+                >
+                  <option value="">Select a thesis title</option>
+                  {availableTheses.map((thesis) => (
+                    <option key={thesis.id} value={thesis.title}>
+                      {thesis.title}
+                    </option>
+                  ))}
+                </select>
                 {validation.thesisTitle && (
                   <div className="text-danger">{validation.thesisTitle}</div>
                 )}

@@ -4,6 +4,14 @@ import NavbarThesis from "../layout/NavbarThesis";
 import { useAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 
+const truncateText = (text, maxLength) => {
+  if (text.length <= maxLength) {
+    return text;
+  } else {
+    return text.substring(0, maxLength) + "...";
+  }
+};
+
 export default function Thesis() {
   let navigate = useNavigate();
   const [theses, setTheses] = useState([]);
@@ -113,11 +121,11 @@ export default function Thesis() {
                   <tr key={thesis.id}>
                     <th scope="row">{index + 1}</th>
                     <td>{thesis.title}</td>
-                    <td>{thesis.description}</td>
+                    <td>{truncateText(thesis.description, 20)}</td>
                     <td>{thesis.maxNumberOfStudents}</td>
-                    <td>{thesis.necessaryKnowledge}</td>
-                    <td>{thesis.deliverables}</td>
-                    <td>{thesis.bibliographicReferences}</td>
+                    <td>{truncateText(thesis.necessaryKnowledge, 20)}</td>
+                    <td>{truncateText(thesis.deliverables, 20)}</td>
+                    <td>{truncateText(thesis.bibliographicReferences, 20)}</td>
                     <td>
                       {thesis.status.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
                         letter.toUpperCase()

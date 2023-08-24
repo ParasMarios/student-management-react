@@ -10,16 +10,46 @@ export default function EditStudent() {
 
   const [student, setStudent] = useState({
     thesisTitle: "",
-    comments: "",
+    comments: [],
   });
 
   const [availableTheses, setAvailableTheses] = useState([]);
   const [validation, setValidation] = useState({
     thesisTitle: "",
-    comments: "",
   });
 
-  const { thesisTitle, comments } = student;
+  const { thesisTitle } = student;
+
+  const addNewComment = () => {
+    const newComment = {
+      title: "",
+      text: "",
+    };
+
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      comments: [...prevStudent.comments, newComment],
+    }));
+  };
+
+  const updateComment = (index, field, value) => {
+    const updatedComments = [...student.comments];
+    updatedComments[index][field] = value;
+
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      comments: updatedComments,
+    }));
+  };
+
+  const deleteComment = (index) => {
+    const updatedComments = student.comments.filter((_, i) => i !== index);
+
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      comments: updatedComments,
+    }));
+  };
 
   const validateInput = (field, value) => {
     let message = "";
@@ -32,11 +62,6 @@ export default function EditStudent() {
           message = "Thesis title must be between 5 and 200 characters";
         }
         break;
-      case "comments":
-        if (value.length > 500) {
-          message = "Comments should not exceed 500 characters";
-        }
-        break;
       default:
         break;
     }
@@ -47,7 +72,13 @@ export default function EditStudent() {
   useEffect(() => {
     const fetchStudent = async () => {
       const { data } = await axiosInstance.get(`/students/${studentEmail}`);
-      setStudent({ thesisTitle: data.thesisTitle, comments: data.comments });
+      setStudent({
+        thesisTitle: data.thesisTitle,
+        comments: data.comments.map((comment) => ({
+          title: comment.title,
+          text: comment.text,
+        })),
+      });
     };
 
     const fetchAvailableTheses = async () => {
@@ -132,21 +163,31 @@ export default function EditStudent() {
               )}
             </div>
             {/* Comments */}
+            <fieldset className="border p-3 mt-3">
+              <legend>Comments</legend>
+              {student.comments.map((comment, index) => (
+                <div key={index}>
+                  <input
+                    type="text"
+                    value={comment.title}
+                    onChange={(e) =>
+                      updateComment(index, "title", e.target.value)
+                    }
+                    placeholder="Comment Title"
+                  />
+                  <textarea
+                    value={comment.text}
+                    onChange={(e) =>
+                      updateComment(index, "text", e.target.value)
+                    }
+                    placeholder="Comment Text"
+                  />
+                  <button onClick={() => deleteComment(index)}>Delete</button>
+                </div>
+              ))}
+            </fieldset>
             <div className="mb-3">
-              <label htmlFor="comments" className="form-label">
-                Comments
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="comments"
-                placeholder="Enter comments"
-                value={comments}
-                onChange={(e) => onInputChange(e)}
-              />
-              {validation.comments && (
-                <div className="text-danger">{validation.comments}</div>
-              )}
+              <button onClick={addNewComment}>Add Comment</button>
             </div>
             <button
               type="button"

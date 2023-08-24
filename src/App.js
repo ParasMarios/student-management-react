@@ -12,6 +12,7 @@ import Theses from "./pages/Theses";
 import AddThesis from "./theses/AddThesis";
 import EditThesis from "./theses/EditThesis";
 import DetailsThesis from "./theses/DetailsThesis";
+import DetailsStudent from "./students/DetailsStudent";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/app/students" element={<Students />} />
         <Route path="/app/addstudent" element={<AddStudent />} />
         <Route path="/app/:email/edit" element={<EditStudent />} />
+        <Route path="/app/:email/details" element={<DetailsStudent />} />
         <Route path="theses" element={<Theses />} />
         <Route path="/app/theses/addthesis" element={<AddThesis />} />
         <Route path="/app/theses/:title/edit" element={<EditThesis />} />

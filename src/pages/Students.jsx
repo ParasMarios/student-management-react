@@ -90,7 +90,6 @@ const Home = () => {
                 <th scope="col">Last Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Thesis Title</th>
-                <th scope="col">Comments</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -103,10 +102,19 @@ const Home = () => {
                     <td>{student.lastName}</td>
                     <td>{student.email}</td>
                     <td>{student.thesisTitle}</td>
-                    <td>{student.comments}</td>
                     <td>
                       <button
-                        className="btn btn-outline-warning"
+                        className="btn btn-outline-info"
+                        onClick={() => {
+                          console.log("Student email:", student.email);
+                          navigate(`/app/${student.email}/details`);
+                        }}
+                      >
+                        Details
+                      </button>
+
+                      <button
+                        className="btn btn-outline-warning mx-2"
                         onClick={() => navigate(`/app/${student.email}/edit`)}
                       >
                         Edit

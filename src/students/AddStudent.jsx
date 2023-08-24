@@ -14,7 +14,7 @@ export default function AddStudent() {
     lastName: "",
     email: "",
     thesisTitle: "",
-    comments: "",
+    comments: [],
   });
 
   const [validation, setValidation] = useState({
@@ -22,7 +22,6 @@ export default function AddStudent() {
     lastName: "",
     email: "",
     thesisTitle: "",
-    comments: "",
   });
 
   const { firstName, lastName, email, thesisTitle, comments } = student;
@@ -30,6 +29,38 @@ export default function AddStudent() {
   const onThesisTitleChange = (e) => {
     const { value } = e.target;
     setStudent({ ...student, thesisTitle: value });
+  };
+
+  const addComment = () => {
+    const newComment = {
+      title: "",
+      date: new Date().toISOString(), // You can customize how you set the date
+      text: "",
+    };
+
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      comments: [...prevStudent.comments, newComment],
+    }));
+  };
+
+  const updateComment = (index, field, value) => {
+    const updatedComments = [...comments];
+    updatedComments[index][field] = value;
+
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      comments: updatedComments,
+    }));
+  };
+
+  const removeComment = (index) => {
+    const updatedComments = comments.filter((_, i) => i !== index);
+
+    setStudent((prevStudent) => ({
+      ...prevStudent,
+      comments: updatedComments,
+    }));
   };
 
   const checkEmailExists = async (email) => {
@@ -105,11 +136,6 @@ export default function AddStudent() {
           message = "Thesis title cannot be blank";
         } else if (value.length < 5 || value.length > 200) {
           message = "Thesis title must be between 5 and 200 characters";
-        }
-        break;
-      case "comments":
-        if (value.length > 500) {
-          message = "Comments should not exceed 500 characters";
         }
         break;
       default:
@@ -235,22 +261,55 @@ export default function AddStudent() {
                 )}
               </div>
               {/* Comments */}
-              <div className="mb-3">
-                <label htmlFor="comments" className="form-label">
-                  Comments
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="comments"
-                  placeholder="Enter comments"
-                  value={comments}
-                  onChange={(e) => onInputChange(e)}
-                />
-                {validation.comments && (
-                  <div className="text-danger">{validation.comments}</div>
-                )}
-              </div>
+              <fieldset className="border p-3 mt-3">
+                <legend>Comments</legend>
+                {comments.map((comment, index) => (
+                  <div key={index}>
+                    <label htmlFor={`comment-title-${index}`}>
+                      Comment Title:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id={`comment-title-${index}`}
+                      name={`comment-title-${index}`}
+                      placeholder="Enter comment title"
+                      value={comment.title}
+                      onChange={(e) =>
+                        updateComment(index, "title", e.target.value)
+                      }
+                    />
+                    <label htmlFor={`comment-text-${index}`}>
+                      Comment Text:
+                    </label>
+                    <textarea
+                      className="form-control"
+                      id={`comment-text-${index}`}
+                      name={`comment-text-${index}`}
+                      rows="3"
+                      placeholder="Enter comment text"
+                      value={comment.text}
+                      onChange={(e) =>
+                        updateComment(index, "text", e.target.value)
+                      }
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-danger mb-3"
+                      onClick={() => removeComment(index)}
+                    >
+                      Remove Comment
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  className="btn btn-secondary mb-3"
+                  onClick={addComment}
+                >
+                  Add Comment
+                </button>
+              </fieldset>
               <button
                 type="button"
                 className="btn btn-danger me-2"

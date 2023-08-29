@@ -21,14 +21,9 @@ export default function EditStudent() {
   const { thesisTitle } = student;
 
   const addNewComment = () => {
-    const currentDate = new Date();
-    const formattedDate = `${currentDate.getDate()}/${
-      currentDate.getMonth() + 1
-    }/${currentDate.getFullYear()}`;
     const newComment = {
       title: "",
       description: "",
-      date: formattedDate, // Add the formatted date to the new comment
     };
     setStudent((prevStudent) => ({
       ...prevStudent,

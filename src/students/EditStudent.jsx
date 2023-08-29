@@ -21,11 +21,15 @@ export default function EditStudent() {
   const { thesisTitle } = student;
 
   const addNewComment = () => {
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getDate()}/${
+      currentDate.getMonth() + 1
+    }/${currentDate.getFullYear()}`;
     const newComment = {
       title: "",
-      text: "",
+      description: "",
+      date: formattedDate, // Add the formatted date to the new comment
     };
-
     setStudent((prevStudent) => ({
       ...prevStudent,
       comments: [...prevStudent.comments, newComment],
@@ -34,7 +38,10 @@ export default function EditStudent() {
 
   const updateComment = (index, field, value) => {
     const updatedComments = [...student.comments];
-    updatedComments[index][field] = value;
+    updatedComments[index] = {
+      ...updatedComments[index],
+      [field]: value,
+    };
 
     setStudent((prevStudent) => ({
       ...prevStudent,
@@ -76,7 +83,7 @@ export default function EditStudent() {
         thesisTitle: data.thesisTitle,
         comments: data.comments.map((comment) => ({
           title: comment.title,
-          text: comment.text,
+          description: comment.description,
         })),
       });
     };
@@ -167,27 +174,55 @@ export default function EditStudent() {
               <legend>Comments</legend>
               {student.comments.map((comment, index) => (
                 <div key={index}>
-                  <input
-                    type="text"
-                    value={comment.title}
-                    onChange={(e) =>
-                      updateComment(index, "title", e.target.value)
-                    }
-                    placeholder="Comment Title"
-                  />
-                  <textarea
-                    value={comment.text}
-                    onChange={(e) =>
-                      updateComment(index, "text", e.target.value)
-                    }
-                    placeholder="Comment Text"
-                  />
-                  <button onClick={() => deleteComment(index)}>Delete</button>
+                  <button
+                    type="button"
+                    onClick={() => deleteComment(index)}
+                    className="btn btn-danger mb-3"
+                  >
+                    Delete Comment
+                  </button>
+                  <div>
+                    <label htmlFor={`comment-title-${index}`}>
+                      Comment Title:
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id={`comment-title-${index}`}
+                      name={`comment-title-${index}`}
+                      placeholder="Enter comment title"
+                      value={comment.title}
+                      onChange={(e) =>
+                        updateComment(index, "title", e.target.value)
+                      }
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor={`comment-description-${index}`}>
+                      Comment Description:
+                    </label>
+                    <textarea
+                      className="form-control"
+                      id={`comment-description-${index}`}
+                      name={`comment-description-${index}`}
+                      placeholder="Enter comment description"
+                      value={comment.description}
+                      onChange={(e) =>
+                        updateComment(index, "description", e.target.value)
+                      }
+                    />
+                  </div>
                 </div>
               ))}
             </fieldset>
             <div className="mb-3">
-              <button onClick={addNewComment}>Add Comment</button>
+              <button
+                type="button"
+                onClick={addNewComment}
+                className="btn btn-secondary mb-3"
+              >
+                New Comment
+              </button>
             </div>
             <button
               type="button"

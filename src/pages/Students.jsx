@@ -119,7 +119,7 @@ const Home = () => {
                         Edit
                       </button>
                       <button
-                        className="btn btn-outline-danger mx-2"
+                        className="btn btn-outline-danger"
                         onClick={() => handleDelete(student)}
                       >
                         Delete

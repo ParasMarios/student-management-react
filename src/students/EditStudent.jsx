@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 export default function EditStudent() {
   let navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
 
   const { email: studentEmail } = useParams();
 
@@ -122,14 +124,12 @@ export default function EditStudent() {
       try {
         await axiosInstance.patch(`/students/${studentEmail}`, student);
         navigate("/app/students");
+        enqueueSnackbar("Student edited successfully", { variant: "success" });
       } catch (error) {
         if (error.response && error.response.status === 500) {
-          setErrorMessage(
-            "The thesis title is already taken. Please choose a different one."
-          );
-        } else {
-          setErrorMessage(
-            "An error occurred while editing the student. Please try again."
+          enqueueSnackbar(
+            "An error occurred while editing the student. Please try again.",
+            { variant: "error" }
           );
         }
       }

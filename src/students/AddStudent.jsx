@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../layout/Navbar";
+import { useSnackbar } from "notistack";
 
 export default function AddStudent() {
   let navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage] = useState("");
   const [emailCheck, setEmailCheck] = useState(false);
   const [availableTheses, setAvailableTheses] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
   const [student, setStudent] = useState({
     firstName: "",
@@ -165,14 +167,12 @@ export default function AddStudent() {
       try {
         await axiosInstance.post("/students", student);
         navigate("/app/students", { replace: true });
+        enqueueSnackbar("Student created successfully", { variant: "success" });
       } catch (error) {
         if (error.response && error.response.status === 500) {
-          setErrorMessage(
-            "The thesis title is already taken. Please choose a different one."
-          );
-        } else {
-          setErrorMessage(
-            "An error occurred while adding the student. Please try again."
+          enqueueSnackbar(
+            "An error occurred while adding the student. Please try again.",
+            { variant: "error" }
           );
         }
       }

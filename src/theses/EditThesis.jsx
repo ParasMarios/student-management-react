@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../axiosInstance";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 export default function EditThesis() {
   let navigate = useNavigate();
   const { title } = useParams();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [thesis, setThesis] = useState({
     title: "",
@@ -139,6 +141,7 @@ export default function EditThesis() {
         ...thesis,
       });
       navigate("/theses");
+      enqueueSnackbar("Thesis edited successfully", { variant: "success" });
     }
   };
 

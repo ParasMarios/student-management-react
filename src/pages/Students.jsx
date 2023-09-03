@@ -14,7 +14,6 @@ const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isReassignModalOpen, setIsReassignModalOpen] = useState(false);
   const [studentToDelete, setStudentToDelete] = useState(null);
-
   useEffect(() => {
     if (authState.isAuthenticated) {
       loadStudents();

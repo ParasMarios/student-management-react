@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import axiosInstance from "../axiosInstance";
 import NavbarThesis from "../layout/NavbarThesis";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 export default function AddThesis() {
   let navigate = useNavigate();
   const [showMilestone, setShowMilestone] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const [thesis, setThesis] = useState({
     title: "",
@@ -120,6 +122,7 @@ export default function AddThesis() {
 
     await axiosInstance.post("/theses", newThesis);
     navigate("/theses");
+    enqueueSnackbar("Thesis created successfully", { variant: "success" });
   };
 
   const addMilestone = () => {

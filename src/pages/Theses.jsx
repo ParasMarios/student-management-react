@@ -3,6 +3,7 @@ import axiosInstance from "../axiosInstance";
 import NavbarThesis from "../layout/NavbarThesis";
 import { useAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) {
@@ -18,6 +19,7 @@ export default function Thesis() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const { authState } = useAuth();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     loadTheses();
@@ -30,8 +32,9 @@ export default function Thesis() {
 
   const deleteThesis = async (id) => {
     try {
-      await axiosInstance.delete(`/theses/${encodeURIComponent(id)}`);
+      await axiosInstance.delete(`/theses/${id}`);
       loadTheses();
+      enqueueSnackbar("Thesis deleted successfully", { variant: "success" });
     } catch (error) {
       console.error("Error while deleting thesis:", error);
     }
@@ -160,7 +163,7 @@ export default function Thesis() {
                           </button>
                           <button
                             className="btn btn-outline-danger"
-                            onClick={() => deleteThesis(thesis.title)}
+                            onClick={() => deleteThesis(thesis.id)}
                           >
                             Delete
                           </button>

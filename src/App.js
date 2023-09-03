@@ -13,23 +13,29 @@ import AddThesis from "./theses/AddThesis";
 import EditThesis from "./theses/EditThesis";
 import DetailsThesis from "./theses/DetailsThesis";
 import DetailsStudent from "./students/DetailsStudent";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
-    <AuthProvider>
-      <Routes>
-        <Route path="/" element={<Auth />} />
-        <Route path="/app" element={<PrivateRoute />} />
-        <Route path="/app/students" element={<Students />} />
-        <Route path="/app/addstudent" element={<AddStudent />} />
-        <Route path="/app/:email/edit" element={<EditStudent />} />
-        <Route path="/app/:email/details" element={<DetailsStudent />} />
-        <Route path="theses" element={<Theses />} />
-        <Route path="/app/theses/addthesis" element={<AddThesis />} />
-        <Route path="/app/theses/:title/edit" element={<EditThesis />} />
-        <Route path="/app/theses/:title/details" element={<DetailsThesis />} />
-      </Routes>
-    </AuthProvider>
+    <SnackbarProvider>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Auth />} />
+          <Route path="/app" element={<PrivateRoute />} />
+          <Route path="/app/students" element={<Students />} />
+          <Route path="/app/addstudent" element={<AddStudent />} />
+          <Route path="/app/:email/edit" element={<EditStudent />} />
+          <Route path="/app/:email/details" element={<DetailsStudent />} />
+          <Route path="theses" element={<Theses />} />
+          <Route path="/app/theses/addthesis" element={<AddThesis />} />
+          <Route path="/app/theses/:title/edit" element={<EditThesis />} />
+          <Route
+            path="/app/theses/:title/details"
+            element={<DetailsThesis />}
+          />
+        </Routes>
+      </AuthProvider>
+    </SnackbarProvider>
   );
 }
 

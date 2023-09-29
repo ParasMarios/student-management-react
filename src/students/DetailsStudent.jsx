@@ -32,6 +32,7 @@ export default function DetailsStudent() {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <div className="navbar-brand ms-5">Student Management System</div>
+
           <div className="ms-auto">
             <Link className="btn btn-outline-primary me-2" to="/theses">
               Theses
@@ -45,7 +46,13 @@ export default function DetailsStudent() {
 
       <div className="container">
         <h1>
-          Details for Student: {student.firstName} {student.lastName}
+          Details for Student: {student.firstName} {student.lastName}{" "}
+          <Link
+            className="btn btn-outline-warning mx-2"
+            to={`/app/${student.email}/edit`}
+          >
+            Edit
+          </Link>
         </h1>
         <p>
           <strong>Email:</strong> {student.email}

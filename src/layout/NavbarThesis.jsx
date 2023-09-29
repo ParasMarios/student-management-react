@@ -1,25 +1,33 @@
-// src/layout/NavbarThesis.js
-import React from "react";
+import { Modal } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
 import { useAuth } from "../auth/AuthContext";
 
 export default function NavbarThesis() {
   const { authState } = useAuth();
-  const { logoutUser } = useAuth(); // Use the useAuth hook
+  const { logoutUser } = useAuth();
+  const [isDeleteAllThesesModalOpen, setIsDeleteAllThesesModalOpen] =
+    useState(false);
 
-  const deleteAllTheses = async () => {
-    if (
-      authState.isAuthenticated &&
-      window.confirm("Are you sure you want to delete all theses?")
-    ) {
-      await axiosInstance.delete(`/theses`);
-      window.location.reload();
-    }
+  const openDeleteAllThesesModal = () => {
+    setIsDeleteAllThesesModalOpen(true);
+  };
+
+  const closeDeleteAllThesesModal = () => {
+    setIsDeleteAllThesesModalOpen(false);
+  };
+
+  const handleDeleteAllTheses = async () => {
+    closeDeleteAllThesesModal();
+
+    await axiosInstance.delete(`/theses`);
+    window.location.reload();
   };
 
   const handleLogout = () => {
-    logoutUser(); // Call the logoutUser function
+    logoutUser();
   };
 
   return (
@@ -38,10 +46,11 @@ export default function NavbarThesis() {
                 <button
                   className="btn btn-outline-danger me-2"
                   type="button"
-                  onClick={deleteAllTheses}
+                  onClick={openDeleteAllThesesModal}
                 >
                   Delete All Theses
                 </button>
+
                 <button
                   className="btn btn-outline-success me-2"
                   type="button"
@@ -61,6 +70,23 @@ export default function NavbarThesis() {
             )}
           </div>
         </div>
+        <Modal
+          show={isDeleteAllThesesModalOpen}
+          onHide={closeDeleteAllThesesModal}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Delete All Theses</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Are you sure you want to delete all theses?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeDeleteAllThesesModal}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleDeleteAllTheses}>
+              Delete All
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </nav>
     </div>
   );

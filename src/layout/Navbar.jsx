@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
-import { useAuth } from "../auth/AuthContext"; // Import useAuth
+import { useAuth } from "../auth/AuthContext";
+import { Modal } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 export default function Navbar() {
-  const { logoutUser } = useAuth(); // Use the useAuth hook
+  const { logoutUser } = useAuth();
   const { authState } = useAuth();
+  const [isDeleteAllStudentsModalOpen, setIsDeleteAllStudentsModalOpen] =
+    useState(false);
 
-  const deleteAllStudents = async () => {
-    if (window.confirm("Are you sure you want to delete all students?")) {
-      await axiosInstance.delete(`/students`);
-      window.location.reload();
-    }
+  const openDeleteAllStudentsModal = () => {
+    setIsDeleteAllStudentsModalOpen(true);
+  };
+
+  const closeDeleteAllStudentsModal = () => {
+    setIsDeleteAllStudentsModalOpen(false);
+  };
+
+  const handleDeleteAllStudents = async () => {
+    closeDeleteAllStudentsModal();
+
+    await axiosInstance.delete(`/students`);
+    window.location.reload();
   };
 
   const handleLogout = () => {
-    logoutUser(); // Call the logoutUser function
+    logoutUser();
   };
 
   return (
@@ -30,7 +42,7 @@ export default function Navbar() {
             <div className="ms-auto">
               <Link
                 className="btn btn-outline-danger me-2"
-                onClick={deleteAllStudents}
+                onClick={openDeleteAllStudentsModal}
               >
                 Delete All Students
               </Link>
@@ -50,6 +62,23 @@ export default function Navbar() {
             </div>
           )}
         </div>
+        <Modal
+          show={isDeleteAllStudentsModalOpen}
+          onHide={closeDeleteAllStudentsModal}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Delete All Students</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Are you sure you want to delete all students?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={closeDeleteAllStudentsModal}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleDeleteAllStudents}>
+              Delete All
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </nav>
     </div>
   );

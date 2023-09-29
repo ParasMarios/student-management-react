@@ -4,6 +4,8 @@ import NavbarThesis from "../layout/NavbarThesis";
 import { useAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { Modal } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 
 const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) {
@@ -20,6 +22,8 @@ export default function Thesis() {
   const [statusFilter, setStatusFilter] = useState("");
   const { authState } = useAuth();
   const { enqueueSnackbar } = useSnackbar();
+  const [thesisToDelete, setThesisToDelete] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     loadTheses();
@@ -28,6 +32,19 @@ export default function Thesis() {
   const loadTheses = async () => {
     const result = await axiosInstance.get("/theses");
     setTheses(result.data);
+  };
+
+  const handleDelete = (thesis) => {
+    setThesisToDelete(thesis);
+    setIsModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (thesisToDelete) {
+      await deleteThesis(thesisToDelete.id); // Call your deleteThesis function
+      setIsModalOpen(false);
+      setThesisToDelete(null);
+    }
   };
 
   const deleteThesis = async (id) => {
@@ -163,7 +180,7 @@ export default function Thesis() {
                           </button>
                           <button
                             className="btn btn-outline-danger"
-                            onClick={() => deleteThesis(thesis.id)}
+                            onClick={() => handleDelete(thesis)}
                           >
                             Delete
                           </button>
@@ -175,6 +192,20 @@ export default function Thesis() {
             </tbody>
           </table>
         </div>
+        <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Thesis</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Do you really want to delete this thesis?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setIsModalOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleConfirmDelete}>
+              Delete
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </div>
   );

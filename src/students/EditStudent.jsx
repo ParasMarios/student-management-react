@@ -222,7 +222,7 @@ export default function EditStudent() {
             <button
               type="button"
               className="btn btn-danger"
-              onClick={() => navigate("/app/students")}
+              onClick={() => window.history.back()}
             >
               Cancel
             </button>

@@ -42,7 +42,15 @@ export default function DetailsThesis() {
       </nav>
 
       <div className="container">
-        <h1>Details for Thesis: {thesis.title}</h1>
+        <h1>
+          Details for Thesis: {thesis.title}{" "}
+          <Link
+            className="btn btn-outline-warning mx-2"
+            to={`/app/theses/${encodeURIComponent(thesis.id)}/edit`}
+          >
+            Edit
+          </Link>
+        </h1>
         <p>
           <strong>Description:</strong> {thesis.description}
         </p>

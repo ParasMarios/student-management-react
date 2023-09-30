@@ -125,14 +125,32 @@ export default function AddStudent() {
         }
         break;
       case "email":
-        const emailRegex = /^.+@uop\.gr$/;
+        // Define allowed email patterns
+        const allowedEmailPatterns = [
+          /^.+@uop\.gr$/,
+          /^.+@go\.uop\.gr$/,
+          /^.+@office365\.uop\.gr$/,
+        ];
+
         if (!value.trim()) {
           message = "Email cannot be blank";
-        } else if (!emailRegex.test(value)) {
-          message = "Email should be valid and end with @uop.gr";
+        } else {
+          let isValid = false;
+          for (const pattern of allowedEmailPatterns) {
+            if (pattern.test(value)) {
+              isValid = true;
+              break;
+            }
+          }
+
+          if (!isValid) {
+            message =
+              "Email should be valid and match one of the allowed patterns";
+          }
         }
         setEmailCheck(true);
         break;
+
       case "thesisTitle":
         if (!value.trim()) {
           message = "Thesis title cannot be blank";
